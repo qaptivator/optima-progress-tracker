@@ -1,10 +1,10 @@
 {
 	"manifest_version": 3,
 	"name": "Optima Progress Tracker",
-	"version": "1.0",
+	"version": "1.1",
 	"description": "Shows how many assignments are done/todo/future on your dashboard.",
-	"permissions": ["activeTab", "scripting"],
-	"host_permissions": ["<all_urls>"],
+	"permissions": ["storage"],
+	"host_permissions": ["*://*.optima-osvita.org/*"],
 	"action": {
 		"default_popup": "popup.html",
 		"default_icon": {
@@ -16,7 +16,7 @@
 	},
 	"content_scripts": [
 		{
-			"matches": ["<all_urls>"],
+			"matches": ["*://*.optima-osvita.org/*"],
 			"js": ["browser-polyfill.min.js", "content.js"],
 			"run_at": "document_idle"
 		}

@@ -1,37 +1,8 @@
-const _browser = window.browser || window.chrome
-
-function queryTabs(options) {
-	// _browser.tabs.query.length === 1
-	if (window.chrome) {
-		// Chrome: callback-based
-		return new Promise((resolve) => _browser.tabs.query(options, resolve))
-	} else {
-		// Firefox: Promise-based
-		return _browser.tabs.query(options)
-	}
-}
-
-function executeScript(tabId, func) {
-	// _browser.scripting.executeScript.length === 1
-	if (window.chrome) {
-		// Chrome: callback-based
-		return new Promise((resolve) =>
-			_browser.scripting.executeScript({ target: { tabId }, func }, resolve)
-		)
-	} else {
-		// Firefox: Promise-based
-		return _browser.scripting.executeScript({ target: { tabId }, func })
-	}
-}
-
 ;(async () => {
-	const [tab] = await queryTabs({ active: true, currentWindow: true })
-	const [{ result }] = await executeScript(
-		tab.id,
-		() => window.__optimaProgress || []
-	)
+	// table rendering logic
+	const { optimaData } = await browser.storage.local.get('optimaData')
+	const data = optimaData || []
 
-	let data = result || []
 	const tbody = document.querySelector('#results tbody')
 	const headers = document.querySelectorAll('#results th')
 
@@ -48,11 +19,11 @@ function executeScript(tabId, func) {
 		for (const { name, done, todo, ahead } of data) {
 			const row = document.createElement('tr')
 			row.innerHTML = `
-				<td>${name}</td>
-				<td>${done}</td>
-				<td>${todo}</td>
-				<td>${ahead}</td>
-			`
+		  <td>${name}</td>
+		  <td>${done}</td>
+		  <td>${todo}</td>
+		  <td>${ahead}</td>
+		`
 			tbody.appendChild(row)
 		}
 	}
@@ -82,17 +53,9 @@ function executeScript(tabId, func) {
 			}
 		})
 
-		const headerKeyMap = {
-			name: 0,
-			done: 1,
-			todo: 2,
-			ahead: 3,
-		}
+		const headerKeyMap = { name: 0, done: 1, todo: 2, ahead: 3 }
 
 		headers.forEach((h) => h.classList.remove('sorted-asc', 'sorted-desc'))
-		/*const idx = ['Class', 'Done', 'Todo', 'Future'].findIndex(
-			(x) => x.toLowerCase() === key.replace('name', 'class')
-		)*/
 		const idx = headerKeyMap[key]
 		if (idx >= 0)
 			headers[idx].classList.add(dir === 'asc' ? 'sorted-asc' : 'sorted-desc')
@@ -121,4 +84,11 @@ function executeScript(tabId, func) {
 	})
 
 	sortData('todo')
+
+	// header ui
+	function clearTable() {
+		browser.storage.local.remove('optimaData').then(() => {
+			renderTable()
+		})
+	}
 })()
