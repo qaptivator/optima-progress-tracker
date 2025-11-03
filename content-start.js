@@ -1,9 +1,23 @@
+let widget1Disabled = false
+let widget2Disabled = false
+
+// hides these two widgets instantly
 const observer = new MutationObserver(() => {
-	const widget = document.querySelector('.optimus-container')
-	if (widget) {
-		// hide instantly
-		widget.style.setProperty('display', 'none', 'important')
-		// stop observing once hidden
+	const widget1 = document.querySelector('.optimus-container')
+	if (widget1) {
+		widget1.style.setProperty('display', 'none', 'important')
+		widget1Disabled = true
+	}
+
+	const widget2 = document.querySelector(
+		'#carrotquest-messenger-collapsed-container'
+	)
+	if (widget2) {
+		widget2.style.setProperty('display', 'none', 'important')
+		widget2Disabled = true
+	}
+
+	if (widget1Disabled && widget2Disabled) {
 		observer.disconnect()
 	}
 })
