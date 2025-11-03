@@ -1,0 +1,77 @@
+:root {
+	--bg: #ffffff;
+	--fg: #222;
+	--accent: #fbb11d;
+	--done: #59c95a;
+	--future: #83aeff;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--bg: #1e1e1e;
+		--fg: #f0f0f0;
+	}
+}
+
+.navbar {
+	display: flex;
+	justify-content: space-between;
+}
+
+body {
+	background: var(--bg);
+	color: var(--fg);
+	font-family: system-ui, sans-serif;
+	margin: 0;
+	padding: 10px;
+	min-width: 320px;
+}
+
+h1 {
+	font-size: 1.2rem;
+	margin-bottom: 0.5rem;
+	text-align: center;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.9rem;
+}
+
+th,
+td {
+	text-align: left;
+	padding: 6px 8px;
+}
+
+th {
+	border-bottom: 2px solid var(--fg);
+	white-space: nowrap;
+}
+
+td:nth-child(2) {
+	color: var(--done);
+	font-weight: 700;
+}
+td:nth-child(3) {
+	color: var(--accent);
+	font-weight: 700;
+}
+td:nth-child(4) {
+	color: var(--future);
+	font-weight: 700;
+}
+
+tr:nth-child(even) {
+	background: rgba(0, 0, 0, 0.2);
+}
+
+th.sorted-asc::after {
+	content: ' ▲';
+	font-size: 0.8em;
+}
+th.sorted-desc::after {
+	content: ' ▼';
+	font-size: 0.8em;
+}
