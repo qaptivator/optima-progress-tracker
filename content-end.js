@@ -38,7 +38,7 @@ function scrapeData() {
 scrapeData()
 
 // navbar ui
-function updateWidgetVisibility(hidden) {
+/*function updateWidgetVisibility(hidden) {
 	const widget1 = document.querySelector(
 		'#carrotquest-messenger-collapsed-container'
 	)
@@ -70,4 +70,4 @@ browser.storage.onChanged.addListener((changes, area) => {
 	if (area === 'local' && 'widgetsHidden' in changes) {
 		updateWidgetVisibility(changes.widgetsHidden.newValue)
 	}
-})
+})*/

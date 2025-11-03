@@ -86,7 +86,7 @@
 	sortData('todo')
 
 	// header ui
-	const toggleBtn = document.getElementById('toggleWidgets')
+	/*const toggleBtn = document.getElementById('toggleWidgets')
 	const iconOff = toggleBtn.querySelector('.icon-btn-off')
 	const iconOn = toggleBtn.querySelector('.icon-btn-on')
 
@@ -118,5 +118,5 @@
 		browser.storage.local.remove('optimaData').then(() => {
 			renderTable()
 		})
-	}
+	}*/
 })()

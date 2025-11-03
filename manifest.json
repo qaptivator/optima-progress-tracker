@@ -17,8 +17,13 @@
 	"content_scripts": [
 		{
 			"matches": ["*://*.optima-osvita.org/*"],
-			"js": ["browser-polyfill.min.js", "content.js"],
+			"js": ["browser-polyfill.min.js", "content-end.js"],
 			"run_at": "document_end"
+		},
+		{
+			"matches": ["*://*.optima-osvita.org/*"],
+			"js": ["content-start.js"],
+			"run_at": "document_start"
 		}
 	],
 	"icons": {
