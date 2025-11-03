@@ -6,13 +6,13 @@
 	const tbody = document.querySelector('#results tbody')
 	const headers = document.querySelectorAll('#results th')
 
+	let currentSort = { key: 'todo', direction: 'asc' }
+
 	if (data.length === 0) {
 		tbody.innerHTML =
 			'<tr><td colspan="4">No data found. Open your Optima dashboard first!</td></tr>'
 		return
 	}
-
-	let currentSort = { key: 'todo', direction: 'asc' }
 
 	function renderTable() {
 		tbody.innerHTML = ''
@@ -86,6 +86,34 @@
 	sortData('todo')
 
 	// header ui
+	const toggleBtn = document.getElementById('toggleWidgets')
+	const iconOff = toggleBtn.querySelector('.icon-btn-off')
+	const iconOn = toggleBtn.querySelector('.icon-btn-on')
+
+	let widgetsHidden = false
+
+	function updateToggleBtnIcon() {
+		if (widgetsHidden) {
+			iconOff.classList.add('hidden')
+			iconOn.classList.remove('hidden')
+		} else {
+			iconOff.classList.remove('hidden')
+			iconOn.classList.add('hidden')
+		}
+	}
+
+	;(async () => {
+		const result = await browser.storage.local.get('widgetsHidden')
+		widgetsHidden = result.widgetsHidden ?? false // default false
+		updateToggleBtnIcon()
+	})()
+
+	toggleBtn.addEventListener('click', async () => {
+		widgetsHidden = !widgetsHidden // flip the variable
+		updateToggleBtnIcon()
+		await browser.storage.local.set({ widgetsHidden })
+	})
+
 	function clearTable() {
 		browser.storage.local.remove('optimaData').then(() => {
 			renderTable()

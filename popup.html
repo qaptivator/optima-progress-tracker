@@ -12,6 +12,50 @@
 		<main>
 			<div class="navbar">
 				<span>Optima Progress</span>
+				<div class="grow"></div>
+				<button
+					type="button"
+					id="toggleWidgets"
+					class="icon-btn"
+				>
+					<svg
+						class="icon-btn-off"
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<circle
+							cx="12"
+							cy="12"
+							r="10"
+						/>
+					</svg>
+					<svg
+						class="icon-btn-on hidden"
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path d="M22 2 2 22" />
+						<circle
+							cx="12"
+							cy="12"
+							r="10"
+						/>
+					</svg>
+				</button>
 				<span>v1.1</span>
 			</div>
 			<table id="results">
@@ -26,6 +70,7 @@
 				<tbody></tbody>
 			</table>
 		</main>
+		<script src="browser-polyfill.min.js"></script>
 		<script src="popup.js"></script>
 	</body>
 </html>

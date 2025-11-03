@@ -18,7 +18,7 @@
 		{
 			"matches": ["*://*.optima-osvita.org/*"],
 			"js": ["browser-polyfill.min.js", "content.js"],
-			"run_at": "document_idle"
+			"run_at": "document_end"
 		}
 	],
 	"icons": {

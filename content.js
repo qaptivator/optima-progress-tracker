@@ -1,3 +1,4 @@
+// table ui
 function scrapeData() {
 	const selector = '.block_completion_progress > div > div'
 	const container = document.querySelector(selector)
@@ -29,12 +30,44 @@ function scrapeData() {
 		results.push({ name, done, todo, ahead })
 	}
 
-	// Sort by todo descending
 	results.sort((a, b) => b.todo - a.todo)
 
-	// Save to storage
 	browser.storage.local.set({ optimaData: results })
 }
 
-// Run scrape
 scrapeData()
+
+// navbar ui
+function updateWidgetVisibility(hidden) {
+	const widget1 = document.querySelector(
+		'#carrotquest-messenger-collapsed-container'
+	)
+	const widget2 = document.querySelector('.optimus-container')
+
+	if (hidden) {
+		console.log(
+			'[updateWidgetVisibility]',
+			hidden,
+			'widget1',
+			widget1,
+			'widget2',
+			widget2
+		)
+		if (widget1) widget1.style.setProperty('display', 'none', 'important')
+		if (widget2) widget2.style.setProperty('display', 'none', 'important')
+	} else {
+		if (widget1) widget1.style.setProperty('display', '', '')
+		if (widget2) widget2.style.setProperty('display', 'flex', 'important')
+	}
+}
+
+;(async () => {
+	const { widgetsHidden } = await browser.storage.local.get('widgetsHidden')
+	updateWidgetVisibility(widgetsHidden ?? false)
+})()
+
+browser.storage.onChanged.addListener((changes, area) => {
+	if (area === 'local' && 'widgetsHidden' in changes) {
+		updateWidgetVisibility(changes.widgetsHidden.newValue)
+	}
+})

@@ -15,7 +15,26 @@
 
 .navbar {
 	display: flex;
-	justify-content: space-between;
+	gap: 10px;
+	align-content: center;
+	/*justify-content: space-between;*/
+}
+
+.grow {
+	flex-grow: 1;
+}
+
+.hidden {
+	display: none;
+}
+
+.icon-btn {
+	size: 20px;
+	cursor: pointer;
+	border: 0px;
+	background: none;
+	color: white;
+	padding: 0;
 }
 
 body {
