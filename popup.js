@@ -26,6 +26,15 @@
 		`
 			tbody.appendChild(row)
 		}
+		
+		const totalRow = document.createElement('tr')
+		totalRow.innerHTML = `
+		  <td><b>TOTAL</b></td>
+		  <td><b>${data.reduce((c, v) => c + v.done, 0)}</b></td>
+		  <td><b>${data.reduce((c, v) => c + v.todo, 0)}</b></td>
+		  <td><b>${data.reduce((c, v) => c + v.ahead, 0)}</b></td>
+		`
+		tbody.appendChild(totalRow)
 	}
 
 	function sortData(key) {

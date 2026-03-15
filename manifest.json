@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "Optima Progress Tracker",
 	"version": "1.2",
-	"description": "Shows how many assignments are done/todo/future on your dashboard. Also hides the widgets in the bottom right corner.",
+	"description": "Shows how many assignments are done/todo/future on your Moodle/Optima dashboard. Also hides the widgets in the bottom right corner.",
 	"permissions": ["storage"],
 	"host_permissions": ["*://*.optima-osvita.org/*"],
 	"action": {
@@ -34,7 +34,12 @@
 	},
 	"browser_specific_settings": {
 		"gecko": {
-			"id": "optima-progress-tracker@you.local"
+			"id": "optima-progress-tracker@ac.dev",
+			"data_collection_permissions": {
+				  "description": "No data is collected. This extension only operates on current website content, and in the localstorage it stores the table of classes and their stats. Nothing is sent to external services.",
+				  "required": ["none"],
+				  "dataTypes": []
+			}
 		}
 	}
 }
