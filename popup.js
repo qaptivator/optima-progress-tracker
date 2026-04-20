@@ -5,7 +5,9 @@
 
 	const tbody = document.querySelector('#results tbody')
 	const headers = document.querySelectorAll('#results th')
-	document.querySelector('#copyTableBtn').addEventListener('click', copyTable)
+	const copyTableBtn = document.querySelector('#copyTableBtn')
+	copyTableBtn.addEventListener('click', copyTable)
+	const copyTableBtnIcon = copyTableBtn.innerHTML
 
 	let currentSort = { key: 'todo', direction: 'asc' }
 
@@ -13,6 +15,14 @@
 		tbody.innerHTML =
 			'<tr><td colspan="4">No data found. Open your Optima dashboard first!</td></tr>'
 		return
+	}
+
+	function dataTotals() {
+		return {
+			done: data.reduce((c, v) => c + v.done, 0),
+			todo: data.reduce((c, v) => c + v.todo, 0),
+			ahead: data.reduce((c, v) => c + v.ahead, 0),
+		}
 	}
 
 	function renderTable() {
@@ -28,12 +38,13 @@
 			tbody.appendChild(row)
 		}
 
+		const totals = dataTotals()
 		const totalRow = document.createElement('tr')
 		totalRow.innerHTML = `
 		  <td><b>TOTAL</b></td>
-		  <td><b>${data.reduce((c, v) => c + v.done, 0)}</b></td>
-		  <td><b>${data.reduce((c, v) => c + v.todo, 0)}</b></td>
-		  <td><b>${data.reduce((c, v) => c + v.ahead, 0)}</b></td>
+		  <td><b>${totals.done}</b></td>
+		  <td><b>${totals.todo}</b></td>
+		  <td><b>${totals.ahead}</b></td>
 		`
 		tbody.appendChild(totalRow)
 	}
@@ -47,14 +58,30 @@
 			plainText += `${name}\t${done}\t${todo}\t${ahead}\n`
 			htmlText += `<tr><td>${name}</td><td>${done}</td><td>${todo}</td><td>${ahead}</td></tr>`
 		}
-		htmlText += '</table>'
+
+		const totals = dataTotals()
+		plainText += `TOTAL\t${totals.done}\t${totals.todo}\t${totals.ahead}\n`
+		htmlText += `<tr><td>TOTAL</td><td>${totals.done}</td><td>${totals.todo}</td><td>${totals.ahead}</td></tr></table>`
 
 		const clipboardItem = new ClipboardItem({
 			'text/plain': new Blob([plainText], { type: 'text/plain' }),
 			'text/html': new Blob([htmlText], { type: 'text/html' }),
 		})
 
-		navigator.clipboard.write([clipboardItem])
+		navigator.clipboard
+			.write([clipboardItem])
+			.then(() => {
+				copyTableBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>`
+				setTimeout(() => {
+					copyTableBtn.innerHTML = copyTableBtnIcon
+				}, 1000)
+			})
+			.catch((err) => {
+				copyTableBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`
+				setTimeout(() => {
+					copyTableBtn.innerHTML = copyTableBtnIcon
+				}, 1000)
+			})
 	}
 
 	function sortData(key) {
