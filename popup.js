@@ -5,6 +5,7 @@
 
 	const tbody = document.querySelector('#results tbody')
 	const headers = document.querySelectorAll('#results th')
+	document.querySelector('#copyTableBtn').addEventListener('click', copyTable)
 
 	let currentSort = { key: 'todo', direction: 'asc' }
 
@@ -26,7 +27,7 @@
 		`
 			tbody.appendChild(row)
 		}
-		
+
 		const totalRow = document.createElement('tr')
 		totalRow.innerHTML = `
 		  <td><b>TOTAL</b></td>
@@ -35,6 +36,25 @@
 		  <td><b>${data.reduce((c, v) => c + v.ahead, 0)}</b></td>
 		`
 		tbody.appendChild(totalRow)
+	}
+
+	function copyTable() {
+		let plainText = 'Name\tDone\tTodo\tAhead\n'
+		let htmlText =
+			'<table><tr><th>Name</th><th>Done</th><th>Todo</th><th>Ahead</th></tr>'
+
+		for (const { name, done, todo, ahead } of data) {
+			plainText += `${name}\t${done}\t${todo}\t${ahead}\n`
+			htmlText += `<tr><td>${name}</td><td>${done}</td><td>${todo}</td><td>${ahead}</td></tr>`
+		}
+		htmlText += '</table>'
+
+		const clipboardItem = new ClipboardItem({
+			'text/plain': new Blob([plainText], { type: 'text/plain' }),
+			'text/html': new Blob([htmlText], { type: 'text/html' }),
+		})
+
+		navigator.clipboard.write([clipboardItem])
 	}
 
 	function sortData(key) {
