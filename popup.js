@@ -8,6 +8,9 @@
 	const copyTableBtn = document.querySelector('#copyTableBtn')
 	copyTableBtn.addEventListener('click', copyTable)
 	const copyTableBtnIcon = copyTableBtn.innerHTML
+	document
+		.querySelector('#closeBtn')
+		.addEventListener('click', () => window.close())
 
 	let currentSort = { key: 'todo', direction: 'asc' }
 
@@ -71,13 +74,13 @@
 		navigator.clipboard
 			.write([clipboardItem])
 			.then(() => {
-				copyTableBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>`
+				copyTableBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>`
 				setTimeout(() => {
 					copyTableBtn.innerHTML = copyTableBtnIcon
 				}, 1000)
 			})
 			.catch((err) => {
-				copyTableBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`
+				copyTableBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`
 				setTimeout(() => {
 					copyTableBtn.innerHTML = copyTableBtnIcon
 				}, 1000)
