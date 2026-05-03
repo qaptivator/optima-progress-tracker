@@ -69,16 +69,21 @@ function scrapeData() {
 			}
 		}
 
-		const avg1 = gradesSem1.length
-			? gradesSem1.reduce((a, b) => a + b, 0) / gradesSem1.length
-			: 0
-		const avg2 = gradesSem2.length
-			? gradesSem2.reduce((a, b) => a + b, 0) / gradesSem2.length
-			: 0
-		const allGrades = [...gradesSem1, ...gradesSem2]
+		const avg1 = Math.round(
+			gradesSem1.length
+				? gradesSem1.reduce((a, b) => a + b, 0) / gradesSem1.length
+				: 0
+		)
+		const avg2 = Math.round(
+			gradesSem2.length
+				? gradesSem2.reduce((a, b) => a + b, 0) / gradesSem2.length
+				: 0
+		)
+		const avgTotal = Math.round((avg1 + avg2) / 2)
+		/*const allGrades = [...gradesSem1, ...gradesSem2]
 		const avgTotal = allGrades.length
 			? allGrades.reduce((a, b) => a + b, 0) / allGrades.length
-			: 0
+			: 0*/
 
 		results.push({
 			name,

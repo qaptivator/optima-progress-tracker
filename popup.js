@@ -33,26 +33,28 @@
 	const themeSelect = document.querySelector('#theme-select')
 
 	// --- Configuration ---
+	// desc for ascending, asc for ascending (idk why)
 	const modes = {
 		counts: {
 			headers: ['Class', 'Done', 'Todo', 'Future'],
 			keys: ['name', 'done', 'todo', 'ahead'],
-			defaultSort: { key: 'todo', direction: 'desc' },
+			defaultSort: { key: 'todo', direction: 'asc' },
 		},
 		todo: {
-			headers: ['Class', 'Lessons', 'Tests', 'Assigns'],
+			headers: ['Class', 'Lesson', 'Test', 'Assign'],
 			keys: ['name', 'todoLessons', 'todoTests', 'todoAssigns'],
-			defaultSort: { key: 'todoLessons', direction: 'desc' },
+			defaultSort: { key: 'todoLessons', direction: 'asc' },
 		},
 		grades: {
 			headers: ['Class', 'Sem 1', 'Sem 2', 'Total'],
 			keys: ['name', 'avg1', 'avg2', 'avgTotal'],
-			defaultSort: { key: 'avgTotal', direction: 'desc' },
+			defaultSort: { key: 'avgTotal', direction: 'asc' },
 		},
 	}
 
 	let currentMode = 'counts'
 	let currentSort = { ...modes[currentMode].defaultSort }
+	const GRADES_FIXED_ROUND = 0
 
 	// --- Functions ---
 
@@ -103,9 +105,9 @@
 			} else if (currentMode === 'grades') {
 				const filtered = filteredData.filter((v) => v[key] > 0)
 				totals[key] = filtered.length
-					? (filtered.reduce((c, v) => c + v[key], 0) / filtered.length).toFixed(
-							2
-					  )
+					? (
+							filtered.reduce((c, v) => c + v[key], 0) / filtered.length
+					  ).toFixed(GRADES_FIXED_ROUND)
 					: '0.00'
 			} else {
 				totals[key] = filteredData.reduce((c, v) => c + v[key], 0)
@@ -132,7 +134,7 @@
 				const td = document.createElement('td')
 				let val = item[key]
 				if (currentMode === 'grades' && key !== 'name') {
-					val = val > 0 ? val.toFixed(2) : '-'
+					val = val > 0 ? val.toFixed(GRADES_FIXED_ROUND) : '-'
 				}
 				td.textContent = val
 				row.appendChild(td)
@@ -188,7 +190,7 @@
 			const rowVals = config.keys.map((key) => {
 				let val = item[key]
 				if (currentMode === 'grades' && key !== 'name') {
-					return val > 0 ? val.toFixed(2) : '-'
+					return val > 0 ? val.toFixed(GRADES_FIXED_ROUND) : '-'
 				}
 				return val
 			})
