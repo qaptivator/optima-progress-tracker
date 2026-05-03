@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "Optima Progress Tracker",
-	"version": "1.3",
+	"version": "1.4",
 	"description": "Shows how many assignments are done/todo/future on your Moodle/Optima dashboard. Also hides the widgets in the bottom right corner.",
 	"permissions": ["storage"],
 	"host_permissions": ["*://*.optima-osvita.org/*"],
