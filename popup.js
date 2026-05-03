@@ -11,6 +11,7 @@
 	const currentSettings = {
 		blacklist: '',
 		theme: 'system',
+		showTotal: true,
 		...settings,
 	}
 
@@ -31,6 +32,7 @@
 	const closeSettingsBtn = document.querySelector('#closeSettingsBtn')
 	const blacklistInput = document.querySelector('#blacklist')
 	const themeSelect = document.querySelector('#theme-select')
+	const showTotalInput = document.querySelector('#show-total')
 
 	// --- Configuration ---
 	// desc for ascending, asc for ascending (idk why)
@@ -38,23 +40,24 @@
 		counts: {
 			headers: ['Class', 'Done', 'Todo', 'Future'],
 			keys: ['name', 'done', 'todo', 'ahead'],
-			defaultSort: { key: 'todo', direction: 'asc' },
+			defaultSort: { key: 'todo', direction: 'desc' },
 		},
 		todo: {
 			headers: ['Class', 'Lesson', 'Test', 'Assign'],
 			keys: ['name', 'todoLessons', 'todoTests', 'todoAssigns'],
-			defaultSort: { key: 'todoLessons', direction: 'asc' },
+			defaultSort: { key: 'todoLessons', direction: 'desc' },
 		},
 		grades: {
 			headers: ['Class', 'Sem 1', 'Sem 2', 'Total'],
 			keys: ['name', 'avg1', 'avg2', 'avgTotal'],
-			defaultSort: { key: 'avgTotal', direction: 'asc' },
+			defaultSort: { key: 'avgTotal', direction: 'desc' },
 		},
 	}
 
 	let currentMode = 'counts'
 	let currentSort = { ...modes[currentMode].defaultSort }
 	const GRADES_FIXED_ROUND = 0
+	const FALLBACK_SORT_DIRECTION = 'desc'
 
 	// --- Functions ---
 
@@ -84,7 +87,7 @@
 			const th = document.createElement('th')
 			th.textContent = text
 			th.style.cursor = 'pointer'
-			th.addEventListener('click', () => sortData(config.keys[i]))
+			th.addEventListener('click', () => sortData(config.keys[i], true))
 
 			const key = config.keys[i]
 			if (currentSort.key === key) {
@@ -142,37 +145,42 @@
 			tbody.appendChild(row)
 		}
 
-		const totals = dataTotals()
-		const totalRow = document.createElement('tr')
-		config.keys.forEach((key) => {
-			const td = document.createElement('td')
-			let val = totals[key]
-			td.innerHTML = `<b>${val}</b>`
-			totalRow.appendChild(td)
-		})
-		tbody.appendChild(totalRow)
+		if (currentSettings.showTotal) {
+			const totals = dataTotals()
+			const totalRow = document.createElement('tr')
+			config.keys.forEach((key) => {
+				const td = document.createElement('td')
+				let val = totals[key]
+				td.innerHTML = `<b>${val}</b>`
+				totalRow.appendChild(td)
+			})
+			tbody.appendChild(totalRow)
+		}
 	}
 
-	function sortData(key) {
-		if (currentSort.key === key) {
-			currentSort.direction = currentSort.direction === 'desc' ? 'asc' : 'desc'
-		} else {
-			currentSort = { key, direction: 'desc' }
+	function sortData(key, toggleDirection = false) {
+		if (toggleDirection) {
+			// toggle if we clicked the same column
+			if (currentSort.key === key) {
+				currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc'
+			} else {
+				currentSort = { key, direction: FALLBACK_SORT_DIRECTION }
+			}
 		}
 
 		filteredData.sort((a, b) => {
-			let valA = a[key]
-			let valB = b[key]
+			let valA = a[key] ?? ''
+			let valB = b[key] ?? ''
 
 			if (key === 'name') {
-				valA = (valA || '').toLowerCase()
-				valB = (valB || '').toLowerCase()
+				valA = valA.toString().toLowerCase()
+				valB = valB.toString().toLowerCase()
 				return currentSort.direction === 'asc'
 					? valA.localeCompare(valB)
 					: valB.localeCompare(valA)
-			} else {
-				return currentSort.direction === 'asc' ? valA - valB : valB - valA
 			}
+
+			return currentSort.direction === 'asc' ? valA - valB : valB - valA
 		})
 
 		renderTable()
@@ -226,6 +234,7 @@
 	async function saveSettings() {
 		currentSettings.blacklist = blacklistInput.value
 		currentSettings.theme = themeSelect.value
+		currentSettings.showTotal = showTotalInput.checked
 		await browser.storage.local.set({ settings: currentSettings })
 		applyTheme(currentSettings.theme)
 		applyBlacklist()
@@ -241,6 +250,7 @@
 			// Populate fields
 			blacklistInput.value = currentSettings.blacklist
 			themeSelect.value = currentSettings.theme
+			showTotalInput.checked = currentSettings.showTotal
 		} else {
 			navbarSettings.classList.add('hidden')
 			viewSettings.classList.add('hidden')
@@ -248,7 +258,7 @@
 			viewTable.classList.remove('hidden')
 
 			saveSettings().then(() => {
-				sortData(currentSort.key)
+				sortData(currentSort.key, false)
 			})
 		}
 	}
@@ -262,7 +272,7 @@
 		input.addEventListener('change', (e) => {
 			currentMode = e.target.value
 			currentSort = { ...modes[currentMode].defaultSort }
-			sortData(currentSort.key)
+			sortData(currentSort.key, false)
 		})
 	})
 
@@ -271,5 +281,5 @@
 	// --- Initial Setup ---
 	applyTheme(currentSettings.theme)
 	applyBlacklist()
-	sortData(currentSort.key)
+	sortData(currentSort.key, false)
 })()
