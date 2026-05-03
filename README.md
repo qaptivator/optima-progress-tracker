@@ -104,8 +104,8 @@ to release the extension:
 
 ### distribution
 
-- **firefox:** go to [mozilla add-on developer hub](https://addons.mozilla.org/en-us/developers/) and upload the zip. i currently keep this unlisted for myself. if you want to use this extension on firefox, you'll have to do this process as well yourself, or wait until i make it public.
-- **chrome:** just upload the zip archive to github releases. i don't feel like uploading this publicly to the web store yet, so i will just keep zip archives here.
+- **firefox:** go to [mozilla add-on developer hub](https://addons.mozilla.org/en-us/developers/) and upload the zip. i currently keep this unlisted for myself. if you want to use this extension on firefox, you'll have to do this process as well yourself, or wait until i make it public. **once you are at the addon page, click "Manage Status & Versions", then your version. right click the `.xpi` link and click "Save Link As...". once you are done, upload the `.xpi` file to the github release instead of a zip. this way, firefox users will be able to easily install this signed version of the extension.**
+- **chrome:** just upload the zip archive to github releases. i don't feel like uploading this publicly to the web store yet, so i will just keep zip archives here. **you cant load signed packs like this, so you must either use the chrome web store (public distribution), or load unpacked opened zip files.**
 
 ## todo
 
