@@ -16,8 +16,40 @@
 .navbar {
 	display: flex;
 	gap: 10px;
-	align-content: center;
-	/*justify-content: space-between;*/
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.segmented-control {
+	display: flex;
+	border: 1px solid var(--fg);
+	border-radius: 4px;
+	overflow: hidden;
+	margin-right: 4px;
+}
+
+.segmented-control input {
+	display: none;
+}
+
+.segmented-control label {
+	padding: 4px 10px;
+	font-size: 0.75rem;
+	cursor: pointer;
+	border-right: 1px solid var(--fg);
+	color: var(--fg);
+	transition: background 0.2s, color 0.2s;
+	text-transform: uppercase;
+	font-weight: 600;
+}
+
+.segmented-control label:last-child {
+	border-right: none;
+}
+
+.segmented-control input:checked + label {
+	background: var(--fg);
+	color: var(--bg);
 }
 
 .grow {
@@ -29,12 +61,16 @@
 }
 
 .icon-btn {
-	size: 20px;
+	width: 24px;
+	height: 24px;
 	cursor: pointer;
 	border: 0px;
 	background: none;
-	color: white;
+	color: var(--fg);
 	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 body {
@@ -43,7 +79,7 @@ body {
 	font-family: system-ui, sans-serif;
 	margin: 0;
 	padding: 10px;
-	min-width: 320px;
+	min-width: 400px;
 }
 
 h1 {
@@ -69,21 +105,68 @@ th {
 	white-space: nowrap;
 }
 
-td:nth-child(2) {
+/* Counts Mode */
+.mode-counts td:nth-child(2) {
 	color: var(--done);
 	font-weight: 700;
 }
-td:nth-child(3) {
+.mode-counts td:nth-child(3) {
 	color: var(--accent);
 	font-weight: 700;
 }
-td:nth-child(4) {
+.mode-counts td:nth-child(4) {
 	color: var(--future);
 	font-weight: 700;
 }
 
+/* TODO Mode - Semantic Accent Colors */
+.mode-todo td:nth-child(2) {
+	color: #ffd43b; /* Lessons - Light Accent */
+	font-weight: 700;
+}
+.mode-todo td:nth-child(3) {
+	color: #f79a21; /* Tests - Main Accent */
+	font-weight: 700;
+}
+.mode-todo td:nth-child(4) {
+	color: #e65d22; /* Assigns - Deeper Accent */
+	font-weight: 700;
+}
+
+/* Grades Mode - Blue to Purple Scheme */
+.mode-grades td:nth-child(2) {
+	color: #4dabf7; /* Sem 1 - Soft Blue */
+	font-weight: 700;
+}
+.mode-grades td:nth-child(3) {
+	color: #748ffc; /* Sem 2 - Indigo */
+	font-weight: 700;
+}
+.mode-grades td:nth-child(4) {
+	color: #be4bdb; /* Total - Purple/Magenta */
+	font-weight: 700;
+}
+
+@media (prefers-color-scheme: dark) {
+	.mode-grades td:nth-child(2) {
+		color: #74c0fc;
+	}
+	.mode-grades td:nth-child(3) {
+		color: #91a7ff;
+	}
+	.mode-grades td:nth-child(4) {
+		color: #da77f2;
+	}
+}
+
 tr:nth-child(even) {
-	background: rgba(0, 0, 0, 0.2);
+	background: rgba(0, 0, 0, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+	tr:nth-child(even) {
+		background: rgba(255, 255, 255, 0.05);
+	}
 }
 
 th.sorted-asc::after {

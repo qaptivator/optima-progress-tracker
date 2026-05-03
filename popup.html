@@ -13,6 +13,30 @@
 			<div class="navbar">
 				<span>Optima Progress</span>
 				<div class="grow"></div>
+				<div class="segmented-control">
+					<input
+						type="radio"
+						id="mode-counts"
+						name="mode"
+						value="counts"
+						checked
+					/>
+					<label for="mode-counts">Status</label>
+					<input
+						type="radio"
+						id="mode-todo"
+						name="mode"
+						value="todo"
+					/>
+					<label for="mode-todo">Type</label>
+					<input
+						type="radio"
+						id="mode-grades"
+						name="mode"
+						value="grades"
+					/>
+					<label for="mode-grades">Grades</label>
+				</div>
 				<button
 					type="button"
 					id="copyTableBtn"
