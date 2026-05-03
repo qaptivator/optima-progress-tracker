@@ -95,3 +95,4 @@ to release the extension:
 - [ ] upload as public extension to chrome web store (needs $5)
 - [ ] upload as public extension to firefox browser add-ons
 - [ ] automate releasing (CI/CD) with github actions (for practicing)
+- [ ] fix the fact that the theme switcher doesnt instantly update (as in it does switch the theme and works correctly, but you need to close the settings menu for it to work). wait no this is actually how it was generated in the code... okay, i dont care.
