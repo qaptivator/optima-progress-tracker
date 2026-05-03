@@ -105,6 +105,13 @@ th {
 	white-space: nowrap;
 }
 
+thead th {
+	position: sticky;
+	top: 0;
+	background: var(--bg);
+	z-index: 10;
+}
+
 /* Counts Mode */
 .mode-counts td:nth-child(2) {
 	color: var(--done);

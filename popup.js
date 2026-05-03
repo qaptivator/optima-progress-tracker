@@ -106,14 +106,17 @@
 			if (key === 'name') {
 				totals[key] = 'TOTAL'
 			} else if (currentMode === 'grades') {
-				const filtered = filteredData.filter((v) => v[key] > 0)
+				// Include 0 as a valid grade, but exclude null/undefined/missing
+				const filtered = filteredData.filter((v) => typeof v[key] === 'number')
+
 				totals[key] = filtered.length
-					? (
+					? Math.round(
 							filtered.reduce((c, v) => c + v[key], 0) / filtered.length
-					  ).toFixed(GRADES_FIXED_ROUND)
-					: '0.00'
+					  )
+					: '-' // Show dash if no grades exist at all
 			} else {
-				totals[key] = filteredData.reduce((c, v) => c + v[key], 0)
+				// Standard sum for counts and todo modes
+				totals[key] = filteredData.reduce((c, v) => c + (v[key] || 0), 0)
 			}
 		})
 		return totals
@@ -137,7 +140,8 @@
 				const td = document.createElement('td')
 				let val = item[key]
 				if (currentMode === 'grades' && key !== 'name') {
-					val = val > 0 ? val.toFixed(GRADES_FIXED_ROUND) : '-'
+					// Show the number if it exists (including 0), otherwise show a dash
+					val = typeof val === 'number' ? val : '-'
 				}
 				td.textContent = val
 				row.appendChild(td)
@@ -198,7 +202,11 @@
 			const rowVals = config.keys.map((key) => {
 				let val = item[key]
 				if (currentMode === 'grades' && key !== 'name') {
-					return val > 0 ? val.toFixed(GRADES_FIXED_ROUND) : '-'
+					val = typeof val === 'number' ? val : '-'
+					/*val =
+						val !== null && val !== undefined && val !== ''
+							? Number(val).toFixed(GRADES_FIXED_ROUND)
+							: '-'*/
 				}
 				return val
 			})
