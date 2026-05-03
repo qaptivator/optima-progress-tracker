@@ -3,3 +3,7 @@ releases/
 node_modules/
 dist/
 manifest.json
+*.pem
+*.log
+*.zip
+*.crx
