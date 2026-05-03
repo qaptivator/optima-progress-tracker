@@ -1,44 +1,78 @@
 ;(async () => {
-	// table rendering logic
-	const { optimaData } = await browser.storage.local.get('optimaData')
-	const data = optimaData || []
+	// --- Data & Initialization ---
+	const { optimaData, settings } = await browser.storage.local.get([
+		'optimaData',
+		'settings',
+	])
+	const rawData = optimaData || []
+	let filteredData = [...rawData]
 
+	// Default settings
+	const currentSettings = {
+		blacklist: '',
+		theme: 'system',
+		...settings,
+	}
+
+	// --- DOM Elements ---
 	const table = document.querySelector('#results')
 	const thead = table.querySelector('thead tr')
 	const tbody = table.querySelector('tbody')
 	const copyTableBtn = document.querySelector('#copyTableBtn')
 	const copyTableBtnIcon = copyTableBtn.innerHTML
-	document
-		.querySelector('#closeBtn')
-		.addEventListener('click', () => window.close())
 
-	// Centralized configuration for all table modes
-	// for ascending use desc, for descending use asc (idk why)
+	const navbarMain = document.querySelector('#navbar-main')
+	const navbarSettings = document.querySelector('#navbar-settings')
+	const viewTable = document.querySelector('#view-table')
+	const viewSettings = document.querySelector('#view-settings')
+
+	const settingsBtn = document.querySelector('#settingsBtn')
+	const quitBtn = document.querySelector('#quitBtn')
+	const closeSettingsBtn = document.querySelector('#closeSettingsBtn')
+	const blacklistInput = document.querySelector('#blacklist')
+	const themeSelect = document.querySelector('#theme-select')
+
+	// --- Configuration ---
 	const modes = {
 		counts: {
 			headers: ['Class', 'Done', 'Todo', 'Future'],
 			keys: ['name', 'done', 'todo', 'ahead'],
-			defaultSort: { key: 'todo', direction: 'asc' },
+			defaultSort: { key: 'todo', direction: 'desc' },
 		},
 		todo: {
-			headers: ['Class', 'Lesson', 'Test', 'Assign'],
+			headers: ['Class', 'Lessons', 'Tests', 'Assigns'],
 			keys: ['name', 'todoLessons', 'todoTests', 'todoAssigns'],
-			defaultSort: { key: 'todoLessons', direction: 'asc' },
+			defaultSort: { key: 'todoLessons', direction: 'desc' },
 		},
 		grades: {
 			headers: ['Class', 'Sem 1', 'Sem 2', 'Total'],
 			keys: ['name', 'avg1', 'avg2', 'avgTotal'],
-			defaultSort: { key: 'avgTotal', direction: 'asc' },
+			defaultSort: { key: 'avgTotal', direction: 'desc' },
 		},
 	}
 
 	let currentMode = 'counts'
 	let currentSort = { ...modes[currentMode].defaultSort }
 
-	if (data.length === 0) {
-		tbody.innerHTML =
-			'<tr><td colspan="4">No data found. Open your Optima dashboard first!</td></tr>'
-		return
+	// --- Functions ---
+
+	function applyTheme(theme) {
+		const root = document.documentElement
+		if (theme === 'system') {
+			root.removeAttribute('data-theme')
+		} else {
+			root.setAttribute('data-theme', theme)
+		}
+	}
+
+	function applyBlacklist() {
+		const lines = currentSettings.blacklist
+			.split('\n')
+			.map((s) => s.trim())
+			.filter((s) => s.length > 0)
+		filteredData = rawData.filter(
+			(item) => !lines.some((line) => item.name.includes(line))
+		)
 	}
 
 	function renderHeaders() {
@@ -67,14 +101,14 @@
 			if (key === 'name') {
 				totals[key] = 'TOTAL'
 			} else if (currentMode === 'grades') {
-				const filtered = data.filter((v) => v[key] > 0)
+				const filtered = filteredData.filter((v) => v[key] > 0)
 				totals[key] = filtered.length
-					? (
-							filtered.reduce((c, v) => c + v[key], 0) / filtered.length
-					  ).toFixed(2)
+					? (filtered.reduce((c, v) => c + v[key], 0) / filtered.length).toFixed(
+							2
+					  )
 					: '0.00'
 			} else {
-				totals[key] = data.reduce((c, v) => c + v[key], 0)
+				totals[key] = filteredData.reduce((c, v) => c + v[key], 0)
 			}
 		})
 		return totals
@@ -84,9 +118,15 @@
 		table.className = `mode-${currentMode}`
 		renderHeaders()
 		tbody.innerHTML = ''
-		const config = modes[currentMode]
 
-		for (const item of data) {
+		if (filteredData.length === 0) {
+			tbody.innerHTML =
+				'<tr><td colspan="4">No data found or all classes blacklisted.</td></tr>'
+			return
+		}
+
+		const config = modes[currentMode]
+		for (const item of filteredData) {
 			const row = document.createElement('tr')
 			config.keys.forEach((key) => {
 				const td = document.createElement('td')
@@ -105,25 +145,20 @@
 		config.keys.forEach((key) => {
 			const td = document.createElement('td')
 			let val = totals[key]
-			if (key === 'name') {
-				td.innerHTML = `<b>${val}</b>`
-			} else {
-				td.innerHTML = `<b>${val}</b>`
-			}
+			td.innerHTML = `<b>${val}</b>`
 			totalRow.appendChild(td)
 		})
 		tbody.appendChild(totalRow)
 	}
 
 	function sortData(key) {
-		// Toggle direction if same key, otherwise default to descending for new keys
 		if (currentSort.key === key) {
 			currentSort.direction = currentSort.direction === 'desc' ? 'asc' : 'desc'
 		} else {
 			currentSort = { key, direction: 'desc' }
 		}
 
-		data.sort((a, b) => {
+		filteredData.sort((a, b) => {
 			let valA = a[key]
 			let valB = b[key]
 
@@ -149,7 +184,7 @@
 			config.headers.map((h) => `<th>${h}</th>`).join('') +
 			'</tr>'
 
-		for (const item of data) {
+		for (const item of filteredData) {
 			const rowVals = config.keys.map((key) => {
 				let val = item[key]
 				if (currentMode === 'grades' && key !== 'name') {
@@ -177,20 +212,50 @@
 		navigator.clipboard
 			.write([clipboardItem])
 			.then(() => {
-				copyTableBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"/></svg>`
+				const originalText = copyTableBtn.querySelector('span').textContent
+				copyTableBtn.querySelector('span').textContent = 'Copied!'
 				setTimeout(() => {
-					copyTableBtn.innerHTML = copyTableBtnIcon
+					copyTableBtn.querySelector('span').textContent = originalText
 				}, 1000)
 			})
-			.catch((err) => {
-				copyTableBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>`
-				setTimeout(() => {
-					copyTableBtn.innerHTML = copyTableBtnIcon
-				}, 1000)
-			})
+			.catch(console.error)
 	}
 
-	// Event Listeners for Mode Switch
+	async function saveSettings() {
+		currentSettings.blacklist = blacklistInput.value
+		currentSettings.theme = themeSelect.value
+		await browser.storage.local.set({ settings: currentSettings })
+		applyTheme(currentSettings.theme)
+		applyBlacklist()
+	}
+
+	function toggleSettings(show) {
+		if (show) {
+			navbarMain.classList.add('hidden')
+			viewTable.classList.add('hidden')
+			navbarSettings.classList.remove('hidden')
+			viewSettings.classList.remove('hidden')
+
+			// Populate fields
+			blacklistInput.value = currentSettings.blacklist
+			themeSelect.value = currentSettings.theme
+		} else {
+			navbarSettings.classList.add('hidden')
+			viewSettings.classList.add('hidden')
+			navbarMain.classList.remove('hidden')
+			viewTable.classList.remove('hidden')
+
+			saveSettings().then(() => {
+				sortData(currentSort.key)
+			})
+		}
+	}
+
+	// --- Event Listeners ---
+	settingsBtn.addEventListener('click', () => toggleSettings(true))
+	closeSettingsBtn.addEventListener('click', () => toggleSettings(false))
+	quitBtn.addEventListener('click', () => window.close())
+
 	document.querySelectorAll('input[name="mode"]').forEach((input) => {
 		input.addEventListener('change', (e) => {
 			currentMode = e.target.value
@@ -201,6 +266,8 @@
 
 	copyTableBtn.addEventListener('click', copyTable)
 
-	// Initial Render
+	// --- Initial Setup ---
+	applyTheme(currentSettings.theme)
+	applyBlacklist()
 	sortData(currentSort.key)
 })()

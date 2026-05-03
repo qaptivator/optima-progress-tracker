@@ -15,9 +15,9 @@
 
 .navbar {
 	display: flex;
-	gap: 10px;
+	gap: 5px;
 	align-items: center;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 }
 
 .segmented-control {
@@ -167,6 +167,109 @@ tr:nth-child(even) {
 	tr:nth-child(even) {
 		background: rgba(255, 255, 255, 0.05);
 	}
+}
+
+/* Theme Support */
+:root[data-theme='light'] {
+	--bg: #ffffff;
+	--fg: #222;
+}
+:root[data-theme='dark'] {
+	--bg: #1e1e1e;
+	--fg: #f0f0f0;
+}
+
+.text-btn {
+	background: none;
+	border: 1px solid var(--fg);
+	color: var(--fg);
+	padding: 4px 12px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.8rem;
+	font-weight: 600;
+	transition: background 0.2s;
+}
+
+.text-btn:hover {
+	background: rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+	.text-btn:hover {
+		background: rgba(255, 255, 255, 0.1);
+	}
+}
+
+.action-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	width: 100%;
+	background: none;
+	border: 1px solid var(--fg);
+	color: var(--fg);
+	padding: 8px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.9rem;
+	font-weight: 600;
+}
+
+.action-btn:hover {
+	background: rgba(0, 0, 0, 0.05);
+}
+
+/* Settings View Styles */
+#view-settings {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 10px 0;
+}
+
+.settings-group {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.settings-group.row {
+	flex-direction: row;
+	align-items: center;
+}
+
+.settings-group label {
+	font-size: 0.85rem;
+	font-weight: 600;
+	opacity: 0.8;
+}
+
+textarea#blacklist {
+	width: 100%;
+	background: none;
+	border: 1px solid var(--fg);
+	color: var(--fg);
+	border-radius: 4px;
+	padding: 8px;
+	font-family: inherit;
+	font-size: 0.85rem;
+	resize: vertical;
+	box-sizing: border-box;
+}
+
+select#theme-select {
+	background: var(--bg);
+	color: var(--fg);
+	border: 1px solid var(--fg);
+	border-radius: 4px;
+	padding: 4px 8px;
+	font-size: 0.85rem;
+}
+
+.settings-actions {
+	margin-top: 8px;
 }
 
 th.sorted-asc::after {
