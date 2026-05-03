@@ -1,0 +1,35 @@
+{
+	"manifest_version": 3,
+	"name": "Optima Progress Tracker",
+	"version": "1.3",
+	"description": "Shows how many assignments are done/todo/future on your Moodle/Optima dashboard. Also hides the widgets in the bottom right corner.",
+	"permissions": ["storage"],
+	"host_permissions": ["*://*.optima-osvita.org/*"],
+	"action": {
+		"default_popup": "popup.html",
+		"default_icon": {
+			"16": "icons/icon-48.png",
+			"32": "icons/icon-48.png",
+			"48": "icons/icon-48.png",
+			"128": "icons/icon-128.png"
+		}
+	},
+	"content_scripts": [
+		{
+			"matches": ["*://*.optima-osvita.org/*"],
+			"js": ["browser-polyfill.min.js", "content-end.js"],
+			"run_at": "document_end"
+		},
+		{
+			"matches": ["*://*.optima-osvita.org/*"],
+			"js": ["browser-polyfill.min.js", "content-start.js"],
+			"run_at": "document_start"
+		}
+	],
+	"icons": {
+		"16": "icons/icon-48.png",
+		"32": "icons/icon-48.png",
+		"48": "icons/icon-48.png",
+		"128": "icons/icon-128.png"
+	}
+}
