@@ -28,30 +28,48 @@ designed specifically for optima school, but works on any moodle dashboard actua
 
 # install (завантаження)
 
+> [!IMPORTANT]
+> оскільки розширення ще не опубліковане в офіційних магазинах Chrome Web Store чи Mozilla Add-ons, його потрібно встановити вручну.
+
 ### chrome / chromium (brave, edge, vivaldi)
 
-1. завантаж останній `optima-progress-tracker_chrome_X.Y.zip` з розділу releases.
+1. завантаж останній `optima-progress-tracker_chrome_X.Y.zip` з розділу [Releases](https://github.com/qaptivator/optima-progress-tracker/releases).
 2. розпакуй архів у папку.
-3. перейди на сторінку `chrome://extensions`.
+3. перейди на сторінку `chrome://extensions` (введіть в адресний ряд).
 4. увімкни **режим розробника** (developer mode) у верхньому правому куті.
 5. натисни **load unpacked** (завантажити розпаковане розширення) і вибери свою папку.
-6.
+6. зайди на сторінку оптіми і оновіть сторінку.
 
 ---
 
-1. download the latest `optima-progress-tracker_chrome_X.Y.zip` from releases.
+1. download the latest `optima-progress-tracker_chrome_X.Y.zip` from the releases page.
 2. extract the archive into a folder.
-3. go to `chrome://extensions`.
+3. go to `chrome://extensions` (type into the address bar).
 4. enable **developer mode** (top right).
 5. click **load unpacked** and select the folder you extracted.
+6. go to the optima dashboard and refresh the tab.
 
 ### firefox
 
-firefox is not publicly supported yet. if you want to use it, you must load it as a temporary add-on via `about:debugging`, put it yourself on to [mozilla add-on developer hub](https://addons.mozilla.org/en-us/developers/), or dm me for help.
+1. завантажте останню версію `optima-progress-tracker_firefox_X.Y.xpi` з розділу [Releases](https://github.com/qaptivator/optima-progress-tracker/releases).
+2. відкрийте Firefox і введіть `about:addons` в адресному рядку.
+3. натисніть на **значок шестірні** (⚙️) у верхній правій частині сторінки керування розширеннями.
+4. виберіть пункт **"Встановити додаток із файлу..."** (Install Add-on From File...).
+5. виберіть завантажений файл `.xpi` і натисніть **"Додати"**, коли з'явиться запит.
+6. зайди на сторінку оптіми і оновіть сторінку.
+
+_примітка: якщо виникає помилка "підпису" (signature), можливо, знадобиться використовувати [Firefox Nightly](https://www.mozilla.org/firefox/channel/desktop/) або Developer Edition для запуску непідписаних розширень._
 
 ---
 
-firefox наразі офіційно не підтримується для публічного завантаження просто так. якщо хочеш спробувати, завантажуй як тимчасове розширення через `about:debugging`, сам виставляй на [mozilla add-on developer hub](https://addons.mozilla.org/en-us/developers/), або пиши мені в особисті і я можу тобі допомогти.
+1. download the latest `optima-progress-tracker_firefox_X.Y.xpi` from the [Releases](https://github.com/your-repo/releases) page.
+2. open Firefox and type `about:addons` in the address bar.
+3. click the **Gear icon** (⚙️) in the top right area of the "Manage Your Extensions" page.
+4. select **"Install Add-on From File..."**.
+5. choose the downloaded `.xpi` file and click **Add** when prompted.
+6. go to the optima dashboard and refresh the tab.
+
+_note: if you encounter a "signature" error, you may need to use [Firefox Nightly](https://www.mozilla.org/firefox/channel/desktop/) or Developer Edition to load unsigned extensions._
 
 # help (допомога)
 
