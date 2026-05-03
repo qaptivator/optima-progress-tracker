@@ -248,6 +248,12 @@
 		applyBlacklist()
 	}
 
+	themeSelect.addEventListener('change', () => {
+		currentSettings.theme = themeSelect.value
+		applyTheme(currentSettings.theme)
+		browser.storage.local.set({ settings: currentSettings })
+	})
+
 	function toggleSettings(show) {
 		if (show) {
 			navbarMain.classList.add('hidden')
