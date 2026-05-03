@@ -83,6 +83,7 @@ to release the extension:
 - copy the target manifest into `src/` as `manifest.json`.
 - put everything inside `src/` into a `.zip` archive with the following name: `optima-progress-tracker_browser_x.y.zip`.
 - put the zip inside `releases/`. `browser` is either `chrome` or `firefox`.
+- tag the release with `git tag -a vX.Y -m "release vX.Y: <your message>"` and then `git push origin vX.Y`
 
 ### distribution
 
