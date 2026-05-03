@@ -89,3 +89,9 @@ to release the extension:
 
 - **firefox:** go to [mozilla add-on developer hub](https://addons.mozilla.org/en-us/developers/) and upload the zip. i currently keep this unlisted for myself. if you want to use this extension on firefox, you'll have to do this process as well yourself, or wait until i make it public.
 - **chrome:** just upload the zip archive to github releases. i don't feel like uploading this publicly to the web store yet, so i will just keep zip archives here.
+
+## todo
+
+- [ ] upload as public extension to chrome web store (needs $5)
+- [ ] upload as public extension to firefox browser add-ons
+- [ ] automate releasing (CI/CD) with github actions (for practicing)
