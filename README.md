@@ -1,6 +1,6 @@
 # optima-progress-tracker
 
-показує в красивій таблиці кількість уроків що ти зробив, повинен зробити і потрібно буде робити. ти також можеш побачити таблиці для типів уроків та приблизні семестрові оцінки (ВОНИ МОЖУТЬ ТА МАБУТЬ Є НЕПРАВИЛЬНИМИ, КРАЩЕ ДИВІСТЬСЯ НА СВІЙ ТАБЕЛЬ ВІД ОПТІМИ).
+показує в красивій таблиці кількість уроків що ти зробив, повинен зробити і потрібно буде робити. ти також можеш побачити таблиці для типів уроків та приблизні семестрові оцінки (ВОНИ МОЖУТЬ ТА МАБУТЬ Є НЕПРАВИЛЬНИМИ, КРАЩЕ ДИВІТЬСЯ НА СВІЙ ТАБЕЛЬ ВІД ОПТІМИ).
 
 розроблено спеціально для школи optima, але насправді працює на будь-якій панелі керування moodle. (класи css, що використовуються для виявлення елементів, ймовірно, потребуватимуть змін. тому не факт, що буде працювати)
 
@@ -10,7 +10,7 @@ shows in a nice table the number of lessons you have done, have to do and will h
 
 designed specifically for optima school, but works on any moodle dashboard actually. (css classes, used to detect elements, will probably need to be changed. so it's not certain that it'll work)
 
-<div align="center">
+<!--<div align="center">
   <table border="0">
     <tr>
       <td align="center" valign="middle">
@@ -24,7 +24,11 @@ designed specifically for optima school, but works on any moodle dashboard actua
       </td>
     </tr>
   </table>
-</div>
+</div>-->
+
+ <img src="assets/screenshot1.png" />
+ <img src="assets/screenshot2.png" />
+ <img src="assets/screenshot3.png"/>
 
 # install (завантаження)
 
