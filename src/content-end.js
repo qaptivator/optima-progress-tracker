@@ -1,17 +1,21 @@
 // table ui
 function scrapeData() {
-	const selector = '.block_completion_progress > div > div'
+	const selector = '.block_optima_indicators__dashboard'
 	const container = document.querySelector(selector)
 	if (!container) return
 
 	const results = []
 
 	for (const card of container.querySelectorAll(':scope > div')) {
-		const headerLink = card.querySelector('div.completion-progress-header a')
+		const headerLink = card.querySelector(
+			'div.block_optima_indicators__course-header a'
+		)
 		if (!headerLink) continue
 		const name = headerLink.textContent.trim()
 
-		const cellsContainer = card.querySelector('div.barRowCells')
+		const cellsContainer = card.querySelector(
+			'div.block_optima_indicators__scale'
+		)
 		if (!cellsContainer) continue
 
 		let done = 0,
@@ -24,8 +28,9 @@ function scrapeData() {
 			gradesSem2 = []
 		let currentSemester = 1
 
+		// before these css classes were different, but in september of 2026 (in my case, 10th grade, and today is 10th of september) they were totally changed and renamed... soo yeah, the old versions of this extension wont work anymore
 		for (const child of cellsContainer.children) {
-			if (child.classList.contains('completion-progress--section-name')) {
+			if (child.classList.contains('block_optima_indicators__section')) {
 				const text = child.textContent.toUpperCase()
 				if (text.includes('1 СЕМЕСТР')) currentSemester = 1
 				else if (text.includes('2 СЕМЕСТР')) currentSemester = 2
@@ -38,9 +43,9 @@ function scrapeData() {
 			const cls = bar.classList
 			if (getComputedStyle(bar).display === 'none') continue
 
-			const isDone = cls.contains('completed')
-			const isTodo = cls.contains('notCompleted')
-			const isAhead = cls.contains('futureNotCompleted')
+			const isDone = cls.contains('block_optima_indicators__cell--completed')
+			const isTodo = cls.contains('block_optima_indicators__cell--overdue')
+			const isAhead = cls.contains('block_optima_indicators__cell--future')
 
 			if (isDone) done++
 			else if (isTodo) todo++
@@ -48,15 +53,17 @@ function scrapeData() {
 
 			// TODO breakdown
 			if (isTodo) {
-				if (cls.contains('progressBarCell--lesson')) todoLessons++
-				else if (cls.contains('progressBarCell--quiz')) todoTests++
-				else if (cls.contains('progressBarCell--assign')) todoAssigns++
+				if (cls.contains('block_optima_indicators__cell--lesson')) todoLessons++
+				else if (cls.contains('block_optima_indicators__cell--quiz'))
+					todoTests++
+				else if (cls.contains('block_optima_indicators__cell--assign'))
+					todoAssigns++
 			}
 
 			// Grade parsing
 			if (
-				cls.contains('progressBarCell--quiz') ||
-				cls.contains('progressBarCell--assign')
+				cls.contains('block_optima_indicators__cell--quiz') ||
+				cls.contains('block_optima_indicators__cell--assign')
 			) {
 				const gradeMatch = bar.textContent.match(/(\d+(?:[.,]\d+)?)/)
 				if (gradeMatch) {
