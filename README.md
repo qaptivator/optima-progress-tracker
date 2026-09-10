@@ -1,16 +1,18 @@
-# optima-progress-tracker
+# optima-progress-tracker ![Optima Logo](src/icons/icon-48.png)
 
-показує в красивій таблиці кількість уроків що ти зробив, повинен зробити і потрібно буде робити. ти також можеш побачити таблиці для типів уроків та приблизні семестрові оцінки (ВОНИ МОЖУТЬ ТА МАБУТЬ Є НЕПРАВИЛЬНИМИ, КРАЩЕ ДИВІСТЬСЯ НА СВІЙ ТАБЕЛЬ ВІД ОПТІМИ).
+Розширення для браузера, яке показує в гарній таблиці предмети та їхні кількість уроків які ти вже виконав, повинен виконати і потрібно буде виконати. Ти також можеш побачити таблицю де рахуються задані уроки по різним типам (урок, тест, завдання) та *приблизні* семестрові оцінки.<br/><sub>(ВОНИ МОЖУТЬ ТА МАБУТЬ Є НЕПРАВИЛЬНИМИ, БО ЦЕ ПРОСТО СЕРЕДНЄ АРИФМЕТИЧНЕ. КРАЩЕ ДИВІТЬСЯ НА СВІЙ ТАБЕЛЬ ВІД ОПТІМИ)</sub>
 
-розроблено спеціально для школи optima, але насправді працює на будь-якій панелі керування moodle. (класи css, що використовуються для виявлення елементів, ймовірно, потребуватимуть змін. тому не факт, що буде працювати)
+Розроблено спеціально для Школи Дистанційного Навчання Optima, але насправді працює на будь-якій панелі керування Moodle.<br/><sub>(класи css, що використовуються для виявлення елементів, ймовірно, потребуватимуть змін. тому не факт, що буде працювати)</sub>
+
+Створено учнем Андрій Ч. 10-Б2 класу
 
 ---
 
-shows in a nice table the number of lessons you have done, have to do and will have to do in the future. you can also see tables for lesson types and approximate semester grades (THEY MAY AND PROBABLY ARE WRONG, CHECK YOUR TABEL GIVEN BY OPTIMA INSTEAD).
+A browser extension to show in a nice table the number of lessons you have done, have to do and will have to do in the future. You can also see a table where the assigned lessons are counted by type (lesson, test, assignment) and *approximate semester* grades.<br/><sub>(THEY MAY AND PROBABLY ARE WRONG, IT'S JUST AN ARITHMETIC MEAN. CHECK YOUR REPORT CARD GIVEN BY OPTIMA INSTEAD)</sub>
 
-designed specifically for optima school, but works on any moodle dashboard actually. (css classes, used to detect elements, will probably need to be changed. so it's not certain that it'll work)
+Designed specifically for optima school, but works on any Moodle dashboard, actually.<br/><sub>(css classes, used to detect elements, will probably need to be changed. so it's not certain that it'll work)</sub>
 
-<div align="center">
+<!--<div align="center">
   <table border="0">
     <tr>
       <td align="center" valign="middle">
@@ -24,7 +26,11 @@ designed specifically for optima school, but works on any moodle dashboard actua
       </td>
     </tr>
   </table>
-</div>
+</div>-->
+
+ <img src="assets/screenshot1.png" />
+ <img src="assets/screenshot2.png" />
+ <img src="assets/screenshot3.png"/>
 
 # install (завантаження)
 
