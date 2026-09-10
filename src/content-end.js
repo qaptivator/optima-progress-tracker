@@ -32,6 +32,7 @@ function scrapeData() {
 		for (const child of cellsContainer.children) {
 			if (child.classList.contains('block_optima_indicators__section')) {
 				const text = child.textContent.toUpperCase()
+				// fun fact, these two pieces of text arent multilingual, so there is no need to add ENG/PL translations :3
 				if (text.includes('1 СЕМЕСТР')) currentSemester = 1
 				else if (text.includes('2 СЕМЕСТР')) currentSemester = 2
 				continue
