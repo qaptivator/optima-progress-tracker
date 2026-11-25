@@ -25,10 +25,10 @@
 	/* 2. Default Theme (Light) */
 	--bg: var(--light-bg);
 	--fg: var(--light-fg);
-	--done: #15803d;
-	--todo: #d97706;
-	--due: #2563eb;
-	--future: #6d28d9;
+	--done: #59c95a;
+	--todo: #fbaf1d;
+	--due: #4a94ff;
+	--future: #83aeff; /* 6d28d9 */
 
 	--type-lesson: #ca8a04;
 	--type-test: #ea580c;
@@ -44,10 +44,16 @@
 	:root:not([data-theme='light']) {
 		--bg: var(--dark-bg);
 		--fg: var(--dark-fg);
-		--done: #4ade80;
+		--done: #0eb026;
+		--todo: #d76b00;
+		--due: #4a94ff;
+		--future: #214296;
+		/*
+		--done: #4ade80; 
 		--todo: #fbbf24;
 		--due: #60a5fa;
 		--future: #a78bfa;
+		*/
 
 		--type-lesson: #facc15;
 		--type-test: #fb923c;
