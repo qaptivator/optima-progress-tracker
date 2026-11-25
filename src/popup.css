@@ -16,27 +16,27 @@
 
 :root {
 	/* 1. Raw Palette & Shared Accents */
-	--light-bg: #ffffff;
-	--light-fg: #343a40;
-	--dark-done: #59c95a;
-	--dark-accent: #fbaf1d;
-	--dark-due: #4a94ff;
-	--dark-future: #83aeff;
+	--light-bg: #dedede;
+	--light-fg: #2b3036;
 
-	--dark-bg: #0a1320;
+	--dark-bg: #08101b;
 	--dark-fg: #e1e9ed;
-	--dark-done: #0eb026;
-	--dark-accent: #d76b00;
-	--dark-due: #4a94ff;
-	--dark-future: #214296;
 
 	/* 2. Default Theme (Light) */
 	--bg: var(--light-bg);
 	--fg: var(--light-fg);
-	--done: var(--light-fg);
-	--todo: var(--light-bg);
-	--due: var(--light-bg);
-	--future: var(--light-fg);
+	--done: #15803d;
+	--todo: #d97706;
+	--due: #2563eb;
+	--future: #6d28d9;
+
+	--type-lesson: #ca8a04;
+	--type-test: #ea580c;
+	--type-assign: #dc2626;
+
+	--grade-s1: #1d4ed8;
+	--grade-s2: #4338ca;
+	--grade-total: #9333ea;
 }
 
 /* 3. Automatic System Dark Mode (unless forced light) */
@@ -44,10 +44,18 @@
 	:root:not([data-theme='light']) {
 		--bg: var(--dark-bg);
 		--fg: var(--dark-fg);
-		--done: var(--dark-fg);
-		--todo: var(--dark-bg);
-		--due: var(--dark-bg);
-		--future: var(--dark-fg);
+		--done: #4ade80;
+		--todo: #fbbf24;
+		--due: #60a5fa;
+		--future: #a78bfa;
+
+		--type-lesson: #facc15;
+		--type-test: #fb923c;
+		--type-assign: #f87171;
+
+		--grade-s1: #74c0fc;
+		--grade-s2: #91a7ff;
+		--grade-total: #da77f2;
 	}
 }
 
@@ -55,10 +63,18 @@
 :root[data-theme='dark'] {
 	--bg: var(--dark-bg);
 	--fg: var(--dark-fg);
-	--done: var(--dark-fg);
-	--todo: var(--dark-bg);
-	--due: var(--dark-bg);
-	--future: var(--dark-fg);
+	--done: #4ade80;
+	--todo: #fbbf24;
+	--due: #60a5fa;
+	--future: #a78bfa;
+
+	--type-lesson: #facc15;
+	--type-test: #fb923c;
+	--type-assign: #f87171;
+
+	--grade-s1: #74c0fc;
+	--grade-s2: #91a7ff;
+	--grade-total: #da77f2;
 }
 
 .navbar {
@@ -121,19 +137,9 @@
 	justify-content: center;
 }
 
-/* html {
-	margin: 0;
-	padding: 0;
-	background: var(--bg);
-	color: var(--fg);
-	box-sizing: border-box;
-	border: 2px solid var(--fg);
-} */
-
 body {
 	background: var(--bg);
 	color: var(--fg);
-	/* font-family: system-ui, sans-serif; */
 	font-family: 'Source Sans 3', sans-serif;
 	font-weight: 400;
 	margin: 0;
@@ -176,66 +182,58 @@ thead th {
 	font-weight: 600;
 }
 
-.mode-status td:not(:first-child),
-.mode-types td:not(:first-child),
+.mode-counts td:not(:first-child),
+.mode-todo td:not(:first-child),
 .mode-grades td:not(:first-child) {
 	font-weight: 900;
 }
 
-/* Status Mode - Semantic Accent Colors */
-.mode-status td:nth-child(2) {
+/* Counts Mode - Semantic Accent Colors */
+.mode-counts td:nth-child(2) {
 	color: var(--done);
 }
-.mode-status td:nth-child(3) {
+.mode-counts td:nth-child(3) {
 	color: var(--todo);
 }
-.mode-status td:nth-child(4) {
+.mode-counts td:nth-child(4) {
 	color: var(--due);
 }
-.mode-status td:nth-child(5) {
+.mode-counts td:nth-child(5) {
 	color: var(--future);
 }
 
-/* Types Mode - Yellow to Red Scheme */
-.mode-types td:nth-child(2) {
-	color: #ffd43b; /* Lessons - Light Accent */
+/* Types / Todo Mode - Yellow to Red Scheme */
+.mode-todo td:nth-child(2) {
+	color: var(--type-lesson);
 }
-.mode-types td:nth-child(3) {
-	color: #f79a21; /* Tests - Main Accent */
+.mode-todo td:nth-child(3) {
+	color: var(--type-test);
 }
-.mode-types td:nth-child(4) {
-	color: #e65d22; /* Assigns - Deeper Accent */
+.mode-todo td:nth-child(4) {
+	color: var(--type-assign);
 }
 
 /* Grades Mode - Blue to Purple Scheme */
 .mode-grades td:nth-child(2) {
-	color: #4dabf7; /* Sem 1 - Soft Blue */
+	color: var(--grade-s1);
 }
 .mode-grades td:nth-child(3) {
-	color: #748ffc; /* Sem 2 - Indigo */
+	color: var(--grade-s2);
 }
 .mode-grades td:nth-child(4) {
-	color: #be4bdb; /* Total - Purple/Magenta */
-}
-
-@media (prefers-color-scheme: dark) {
-	.mode-grades td:nth-child(2) {
-		color: #74c0fc;
-	}
-	.mode-grades td:nth-child(3) {
-		color: #91a7ff;
-	}
-	.mode-grades td:nth-child(4) {
-		color: #da77f2;
-	}
+	color: var(--grade-total);
 }
 
 tr:nth-child(even) {
-	background: rgba(0, 0, 0, 0.05);
+	background: rgba(0, 0, 0, 0.04);
+}
+
+:root[data-theme='dark'] tr:nth-child(even) {
+	background: rgba(255, 255, 255, 0.05);
 }
 
 @media (prefers-color-scheme: dark) {
-	tr:nth-child(even) {
+	:root:not([data-theme='light']) tr:nth-child(even) {
 		background: rgba(255, 255, 255, 0.05);
 	}
 }
@@ -256,8 +254,12 @@ tr:nth-child(even) {
 	background: rgba(0, 0, 0, 0.1);
 }
 
+:root[data-theme='dark'] .text-btn:hover {
+	background: rgba(255, 255, 255, 0.1);
+}
+
 @media (prefers-color-scheme: dark) {
-	.text-btn:hover {
+	:root:not([data-theme='light']) .text-btn:hover {
 		background: rgba(255, 255, 255, 0.1);
 	}
 }
@@ -280,6 +282,16 @@ tr:nth-child(even) {
 
 .action-btn:hover {
 	background: rgba(0, 0, 0, 0.05);
+}
+
+:root[data-theme='dark'] .action-btn:hover {
+	background: rgba(255, 255, 255, 0.05);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) .action-btn:hover {
+		background: rgba(255, 255, 255, 0.05);
+	}
 }
 
 /* Settings View Styles */
