@@ -7,12 +7,67 @@
 	const rawData = optimaData || []
 	let filteredData = [...rawData]
 
+	const translations = {
+		uk: {
+			appTitle: 'Прогрес Optima',
+			settingsTitle: 'Налаштування',
+			modeStatus: 'Статус',
+			modeTypes: 'Типи',
+			modeGrades: 'Оцінки',
+			blacklistLabel: 'Чорний список предметів (по одному на рядок)',
+			blacklistPlaceholder: 'Назва предмета 1\nНазва предмета 2',
+			appearanceLabel: 'Оформлення',
+			themeSystem: 'Системна',
+			themeLight: 'Світла',
+			themeDark: 'Темна',
+			language: 'Мова',
+			showTotalLabel: 'Показувати рядок «Разом»',
+			copyTable: 'Скопіювати таблицю',
+			copied: 'Скопійовано!',
+			emptyState: 'Даних не знайдено або всі предмети приховано.',
+			totalRow: 'РАЗОМ',
+			headers: {
+				counts: ['Предмет', 'Виконано', 'Залишилось', 'Здати', 'Майбутні'],
+				todo: ['Предмет', 'Урок', 'Тест', 'Завдання'],
+				grades: ['Предмет', '1 сем.', '2 сем.', 'Загалом'],
+			},
+		},
+		en: {
+			appTitle: 'Optima Progress',
+			settingsTitle: 'Settings',
+			modeStatus: 'Status',
+			modeTypes: 'Types',
+			modeGrades: 'Grades',
+			blacklistLabel: 'Blacklisted Classes (one per line)',
+			blacklistPlaceholder: 'Class Name 1\nClass Name 2',
+			appearanceLabel: 'Appearance',
+			themeSystem: 'System',
+			themeLight: 'Light',
+			themeDark: 'Dark',
+			language: 'Language',
+			showTotalLabel: 'Show Total Count',
+			copyTable: 'Copy Current Table',
+			copied: 'Copied!',
+			emptyState: 'No data found or all classes blacklisted.',
+			totalRow: 'TOTAL',
+			headers: {
+				counts: ['Class', 'Done', 'Todo', 'Due', 'Future'],
+				todo: ['Class', 'Lesson', 'Test', 'Assign'],
+				grades: ['Class', 'Sem 1', 'Sem 2', 'Total'],
+			},
+		},
+	}
+
 	// Default settings
 	const currentSettings = {
 		blacklist: '',
 		theme: 'system',
 		showTotal: true,
+		lang: 'uk',
 		...settings,
+	}
+	if (!(currentSettings.lang in translations)) {
+		currentSettings.lang = 'uk'
 	}
 
 	// --- DOM Elements ---
@@ -32,6 +87,7 @@
 	const closeSettingsBtn = document.querySelector('#closeSettingsBtn')
 	const blacklistInput = document.querySelector('#blacklist')
 	const themeSelect = document.querySelector('#theme-select')
+	const langSelect = document.querySelector('#lang-select')
 	const showTotalInput = document.querySelector('#show-total')
 
 	// --- Configuration ---
@@ -70,6 +126,27 @@
 		}
 	}
 
+	function t(key) {
+		const lang = currentSettings.lang in translations ? currentSettings.lang : 'uk'
+		return translations[lang][key] ?? translations.en[key] ?? key
+	}
+
+	function getHeadersForMode(mode) {
+		const lang = currentSettings.lang in translations ? currentSettings.lang : 'uk'
+		return translations[lang].headers[mode] || modes[mode].headers
+	}
+
+	function applyLanguage() {
+		const lang = currentSettings.lang in translations ? currentSettings.lang : 'uk'
+		document.documentElement.lang = lang
+		document.querySelectorAll('[data-i18n]').forEach((el) => {
+			el.textContent = t(el.dataset.i18n)
+		})
+		document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+			el.placeholder = t(el.dataset.i18nPlaceholder)
+		})
+	}
+
 	function applyBlacklist() {
 		const lines = currentSettings.blacklist
 			.split('\n')
@@ -83,7 +160,8 @@
 	function renderHeaders() {
 		thead.innerHTML = ''
 		const config = modes[currentMode]
-		config.headers.forEach((text, i) => {
+		const headers = getHeadersForMode(currentMode)
+		headers.forEach((text, i) => {
 			const th = document.createElement('th')
 			th.textContent = text
 			th.style.cursor = 'pointer'
@@ -104,7 +182,7 @@
 		const totals = {}
 		config.keys.forEach((key) => {
 			if (key === 'name') {
-				totals[key] = 'TOTAL'
+				totals[key] = t('totalRow')
 			} else if (currentMode === 'grades') {
 				// Include 0 as a valid grade, but exclude null/undefined/missing
 				const filtered = filteredData.filter((v) => typeof v[key] === 'number')
@@ -128,8 +206,8 @@
 		tbody.innerHTML = ''
 
 		if (filteredData.length === 0) {
-			tbody.innerHTML =
-				'<tr><td colspan="4">No data found or all classes blacklisted.</td></tr>'
+			const colspan = modes[currentMode].keys.length
+			tbody.innerHTML = `<tr><td colspan="${colspan}">${t('emptyState')}</td></tr>`
 			return
 		}
 
@@ -192,10 +270,11 @@
 
 	function copyTable() {
 		const config = modes[currentMode]
-		let plainText = config.headers.join('\t') + '\n'
+		const headers = getHeadersForMode(currentMode)
+		let plainText = headers.join('\t') + '\n'
 		let htmlText =
 			'<table><tr>' +
-			config.headers.map((h) => `<th>${h}</th>`).join('') +
+			headers.map((h) => `<th>${h}</th>`).join('') +
 			'</tr>'
 
 		for (const item of filteredData) {
@@ -231,7 +310,7 @@
 			.write([clipboardItem])
 			.then(() => {
 				const originalText = copyTableBtn.querySelector('span').textContent
-				copyTableBtn.querySelector('span').textContent = 'Copied!'
+				copyTableBtn.querySelector('span').textContent = t('copied')
 				setTimeout(() => {
 					copyTableBtn.querySelector('span').textContent = originalText
 				}, 1000)
@@ -245,6 +324,7 @@
 		currentSettings.blacklist = blacklistInput.value
 		currentSettings.theme = themeSelect.value
 		currentSettings.showTotal = showTotalInput.checked
+		currentSettings.lang = langSelect.value in translations ? langSelect.value : 'uk'
 	}
 
 	async function saveSettings({ refreshTable = false } = {}) {
@@ -255,6 +335,7 @@
 			await browser.storage.local.set({ settings: currentSettings })
 			applyTheme(currentSettings.theme)
 			applyBlacklist()
+			applyLanguage()
 			if (refreshTable) {
 				sortData(currentSort.key, false)
 			}
@@ -277,6 +358,10 @@
 
 	showTotalInput.addEventListener('change', () => {
 		saveSettings()
+	})
+
+	langSelect.addEventListener('change', () => {
+		saveSettings({ refreshTable: true })
 	})
 
 	blacklistInput.addEventListener('input', () => {
@@ -302,6 +387,7 @@
 			// Populate fields
 			blacklistInput.value = currentSettings.blacklist
 			themeSelect.value = currentSettings.theme
+			langSelect.value = currentSettings.lang
 			showTotalInput.checked = currentSettings.showTotal
 		} else {
 			navbarSettings.classList.add('hidden')
@@ -331,7 +417,9 @@
 	copyTableBtn.addEventListener('click', copyTable)
 
 	// --- Initial Setup ---
+	langSelect.value = currentSettings.lang
 	applyTheme(currentSettings.theme)
+	applyLanguage()
 	applyBlacklist()
 	sortData(currentSort.key, false)
 })()

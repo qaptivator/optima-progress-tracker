@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 	<head>
 		<meta charset="UTF-8" />
 		<title>Optima Progress Tracker</title>
@@ -15,7 +15,7 @@
 				class="navbar"
 				id="navbar-main"
 			>
-				<span class="bold">Optima Progress</span>
+				<span class="bold" data-i18n="appTitle">Прогрес Optima</span>
 				<div class="grow"></div>
 				<div class="segmented-control">
 					<input
@@ -25,21 +25,21 @@
 						value="counts"
 						checked
 					/>
-					<label for="mode-status">Status</label>
+					<label for="mode-status" data-i18n="modeStatus">Статус</label>
 					<input
 						type="radio"
 						id="mode-types"
 						name="mode"
 						value="todo"
 					/>
-					<label for="mode-types">Types</label>
+					<label for="mode-types" data-i18n="modeTypes">Типи</label>
 					<input
 						type="radio"
 						id="mode-grades"
 						name="mode"
 						value="grades"
 					/>
-					<label for="mode-grades">Grades</label>
+					<label for="mode-grades" data-i18n="modeGrades">Оцінки</label>
 				</div>
 				<button
 					type="button"
@@ -96,7 +96,7 @@
 				class="navbar hidden"
 				id="navbar-settings"
 			>
-				<span>Settings</span>
+				<span class="bold" data-i18n="settingsTitle">Налаштування</span>
 				<div class="grow"></div>
 				<button
 					type="button"
@@ -142,26 +142,36 @@
 				class="hidden"
 			>
 				<div class="settings-group">
-					<label for="blacklist">Blacklisted Classes (one per line)</label>
+					<label for="blacklist" data-i18n="blacklistLabel">Чорний список предметів (по одному на рядок)</label>
 					<textarea
 						id="blacklist"
 						rows="6"
-						placeholder="Class Name 1&#10;Class Name 2"
+						data-i18n-placeholder="blacklistPlaceholder"
+						placeholder="Назва предмета 1&#10;Назва предмета 2"
 					></textarea>
 				</div>
 
 				<div class="settings-group row">
-					<label for="theme-select">Appearance</label>
+					<label for="theme-select" data-i18n="appearanceLabel">Оформлення</label>
 					<div class="grow"></div>
 					<select id="theme-select">
-						<option value="system">System</option>
-						<option value="light">Light</option>
-						<option value="dark">Dark</option>
+						<option value="system" data-i18n="themeSystem">Системна</option>
+						<option value="light" data-i18n="themeLight">Світла</option>
+						<option value="dark" data-i18n="themeDark">Темна</option>
 					</select>
 				</div>
 
 				<div class="settings-group row">
-					<label for="show-total">Show Total Count</label>
+					<label for="lang-select" data-i18n="language">Мова</label>
+					<div class="grow"></div>
+					<select id="lang-select">
+						<option value="uk">Українська</option>
+						<option value="en">English</option>
+					</select>
+				</div>
+
+				<div class="settings-group row">
+					<label for="show-total" data-i18n="showTotalLabel">Показувати рядок «Разом»</label>
 					<div class="grow"></div>
 					<input
 						type="checkbox"
@@ -199,7 +209,7 @@
 								d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
 							/>
 						</svg>
-						<span>Copy Current Table</span>
+						<span data-i18n="copyTable">Скопіювати таблицю</span>
 					</button>
 				</div>
 			</div>

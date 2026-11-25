@@ -332,7 +332,8 @@ textarea#blacklist {
 	box-sizing: border-box;
 }
 
-select#theme-select {
+select#theme-select,
+select#lang-select {
 	background: var(--bg);
 	color: var(--fg);
 	border: 1px solid var(--fg);
