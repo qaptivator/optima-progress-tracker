@@ -1,9 +1,17 @@
 :root {
 	--bg: #ffffff;
 	--fg: #222;
+	--accent: #d76b00;
+	--done: #0eb026;
+	--due: #4a94ff;
+	--future: #214296;
+	/*
+	--bg: #ffffff;
+	--fg: #222;
 	--accent: #fbb11d;
 	--done: #59c95a;
 	--future: #83aeff;
+	*/
 }
 
 @media (prefers-color-scheme: dark) {
@@ -122,6 +130,10 @@ thead th {
 	font-weight: 700;
 }
 .mode-counts td:nth-child(4) {
+	color: var(--due);
+	font-weight: 700;
+}
+.mode-counts td:nth-child(5) {
 	color: var(--future);
 	font-weight: 700;
 }

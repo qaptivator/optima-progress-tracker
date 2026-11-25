@@ -20,6 +20,7 @@ function scrapeData() {
 
 		let done = 0,
 			todo = 0,
+			due = 0,
 			ahead = 0
 		let todoLessons = 0,
 			todoTests = 0,
@@ -48,11 +49,13 @@ function scrapeData() {
 					const isDone = cls.contains(
 						'block_optima_indicators__cell--completed'
 					)
+					const isDue = cls.contains('block_optima_indicators__cell--due_today')
 					const isTodo = cls.contains('block_optima_indicators__cell--overdue')
 					const isAhead = cls.contains('block_optima_indicators__cell--future')
 
 					if (isDone) done++
 					else if (isTodo) todo++
+					else if (isDue) due++
 					else if (isAhead) ahead++
 
 					// TODO breakdown
@@ -104,6 +107,7 @@ function scrapeData() {
 			name,
 			done,
 			todo,
+			due,
 			ahead,
 			todoLessons,
 			todoTests,

@@ -38,8 +38,8 @@
 	// desc for ascending, asc for ascending (idk why)
 	const modes = {
 		counts: {
-			headers: ['Class', 'Done', 'Todo', 'Future'],
-			keys: ['name', 'done', 'todo', 'ahead'],
+			headers: ['Class', 'Done', 'Todo', 'Due', 'Future'],
+			keys: ['name', 'done', 'todo', 'due', 'ahead'],
 			defaultSort: { key: 'todo', direction: 'desc' },
 		},
 		todo: {
