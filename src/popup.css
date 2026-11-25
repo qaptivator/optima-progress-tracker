@@ -19,28 +19,24 @@
 	--light-bg: #dedede;
 	--light-fg: #2b3036;
 
-	--dark-bg: #08101b;
-	--dark-fg: #e1e9ed;
+	--dark-bg: #1e1e1e;
+	--dark-fg: #f0f0f0;
 
 	/* 2. Default Theme (Light) */
 	--bg: var(--light-bg);
 	--fg: var(--light-fg);
-	/*--done: #0eb026;
-	--todo: #d76b00;
-	--due: #4a94ff;
-	--future: #214296;*/
-	--done: #4ade80;
-	--todo: #fbbf24;
-	--due: #60a5fa;
-	--future: #a78bfa;
+	--done: #2e8b32;
+	--todo: #c87d00;
+	--due: #2563eb;
+	--future: #7c3aed;
 
-	--type-lesson: #ca8a04;
-	--type-test: #ea580c;
-	--type-assign: #dc2626;
+	--type-lesson: #b47800;
+	--type-test: #d9530f;
+	--type-assign: #c92a2a;
 
 	--grade-s1: #1d4ed8;
 	--grade-s2: #4338ca;
-	--grade-total: #9333ea;
+	--grade-total: #862e9c;
 }
 
 /* 3. Automatic System Dark Mode (unless forced light) */
@@ -48,19 +44,13 @@
 	:root:not([data-theme='light']) {
 		--bg: var(--dark-bg);
 		--fg: var(--dark-fg);
-		--done: #4ade80;
-		--todo: #fbbf24;
-		--due: #60a5fa;
-		--future: #a78bfa;
-		/*
-		--done: #4ade80; 
-		--todo: #fbbf24;
-		--due: #60a5fa;
-		--future: #a78bfa;
-		*/
+		--done: #59c95a;
+		--todo: #fbb11d;
+		--due: #4a94ff;
+		--future: #b47aff;
 
-		--type-lesson: #facc15;
-		--type-test: #fb923c;
+		--type-lesson: #fbb11d;
+		--type-test: #f97316;
 		--type-assign: #f87171;
 
 		--grade-s1: #74c0fc;
@@ -73,13 +63,13 @@
 :root[data-theme='dark'] {
 	--bg: var(--dark-bg);
 	--fg: var(--dark-fg);
-	--done: #4ade80;
-	--todo: #fbbf24;
-	--due: #60a5fa;
-	--future: #a78bfa;
+	--done: #59c95a;
+	--todo: #fbb11d;
+	--due: #4a94ff;
+	--future: #b47aff;
 
-	--type-lesson: #facc15;
-	--type-test: #fb923c;
+	--type-lesson: #fbb11d;
+	--type-test: #f97316;
 	--type-assign: #f87171;
 
 	--grade-s1: #74c0fc;
