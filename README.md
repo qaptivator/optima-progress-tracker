@@ -1,6 +1,6 @@
 # optima-progress-tracker ![Optima Logo](src/icons/icon-48.png)
 
-Розширення для браузера, яке показує в гарній таблиці предмети та їхні кількість уроків які ти вже виконав, повинен виконати і потрібно буде виконати. Ти також можеш побачити таблицю де рахуються задані уроки по різним типам (урок, тест, завдання) та *приблизні* семестрові оцінки.<br/><sub>(ВОНИ МОЖУТЬ ТА МАБУТЬ Є НЕПРАВИЛЬНИМИ, БО ЦЕ ПРОСТО СЕРЕДНЄ АРИФМЕТИЧНЕ. КРАЩЕ ДИВІТЬСЯ НА СВІЙ ТАБЕЛЬ ВІД ОПТІМИ)</sub>
+Розширення для браузера, яке показує в гарній таблиці предмети та їхні кількість уроків які ти вже виконав, повинен виконати і потрібно буде виконати. Ти також можеш побачити таблицю де рахуються задані уроки по різним типам (урок, тест, завдання) та _приблизні_ семестрові оцінки.<br/><sub>(ВОНИ МОЖУТЬ ТА МАБУТЬ Є НЕПРАВИЛЬНИМИ, БО ЦЕ ПРОСТО СЕРЕДНЄ АРИФМЕТИЧНЕ. КРАЩЕ ДИВІТЬСЯ НА СВІЙ ТАБЕЛЬ ВІД ОПТІМИ)</sub>
 
 Розроблено спеціально для Школи Дистанційного Навчання Optima, але насправді працює на будь-якій панелі керування Moodle.<br/><sub>(класи css, що використовуються для виявлення елементів, ймовірно, потребуватимуть змін. тому не факт, що буде працювати)</sub>
 
@@ -8,7 +8,7 @@
 
 ---
 
-A browser extension to show in a nice table the number of lessons you have done, have to do and will have to do in the future. You can also see a table where the assigned lessons are counted by type (lesson, test, assignment) and *approximate semester* grades.<br/><sub>(THEY MAY AND PROBABLY ARE WRONG, IT'S JUST AN ARITHMETIC MEAN. CHECK YOUR REPORT CARD GIVEN BY OPTIMA INSTEAD)</sub>
+A browser extension to show in a nice table the number of lessons you have done, have to do and will have to do in the future. You can also see a table where the assigned lessons are counted by type (lesson, test, assignment) and _approximate semester_ grades.<br/><sub>(THEY MAY AND PROBABLY ARE WRONG, IT'S JUST AN ARITHMETIC MEAN. CHECK YOUR REPORT CARD GIVEN BY OPTIMA INSTEAD)</sub>
 
 Designed specifically for optima school, but works on any Moodle dashboard, actually.<br/><sub>(css classes, used to detect elements, will probably need to be changed. so it's not certain that it'll work)</sub>
 
@@ -117,5 +117,8 @@ to release the extension:
 
 - [ ] upload as public extension to chrome web store (needs $5)
 - [ ] upload as public extension to firefox browser add-ons
-- [ ] automate releasing (CI/CD) with github actions (for practicing)
-- [x] fix the fact that the theme switcher doesnt instantly update (as in it does switch the theme and works correctly, but you need to close the settings menu for it to work). wait no this is actually how it was generated in the code... okay, i dont care.
+- [x] automate releasing (CI/CD) with github actions (for practicing)
+- [x] fix the fact that the theme switcher doesnt instantly update (as in it does switch the theme and works correctly, but you need to close the settings menu for it to work). wait no this is actually how it was generated in the code... okay, i dont care. update as of v2.1: yep, i fixed it now. using event listeners. it works correctly and properly now :3
+- [ ] add multi language support (mostly ukrainian)
+- [ ] maybe add hover states to buttons? (idk, last time i have tried doing that after/during the commit 3885270 it looked awkward and i didnt like it, so i didnt put it into v2.1)
+- [ ] maybe add a way to configure which columns to show, or whether to make the bottom TOTAL sticky like the table's header, or maybe even add some statistics window??? idk bro
