@@ -1,0 +1,76 @@
+name: Build and Release Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g., v2.1 or v2.1.0). Leave empty if running on a tag.'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  package-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Resolve version and tag
+        id: meta
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            RAW_TAG="${GITHUB_REF_NAME}"
+          else
+            RAW_TAG="${{ inputs.tag }}"
+            if [ -z "$RAW_TAG" ]; then
+              RAW_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+            fi
+          fi
+
+          # Strip leading 'v' or 'V' for filename version (e.g., v2.1 -> 2.1)
+          VERSION="${RAW_TAG#v}"
+          VERSION="${VERSION#V}"
+
+          echo "tag=${RAW_TAG}" >> "$GITHUB_OUTPUT"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+      - name: Package Chrome extension
+        shell: bash
+        run: |
+          mkdir -p dist
+          cp manifest.chrome.json src/manifest.json
+          (
+            cd src
+            zip -r "../dist/optima-progress-tracker_chrome_${{ steps.meta.outputs.version }}.zip" . -x "*.DS_Store"
+          )
+
+      - name: Package Firefox extension (.zip and .xpi)
+        shell: bash
+        run: |
+          mkdir -p dist
+          cp manifest.firefox.json src/manifest.json
+          (
+            cd src
+            zip -r "../dist/optima-progress-tracker_firefox_${{ steps.meta.outputs.version }}.zip" . -x "*.DS_Store"
+          )
+          cp "dist/optima-progress-tracker_firefox_${{ steps.meta.outputs.version }}.zip" \
+             "dist/optima-progress-tracker_firefox_${{ steps.meta.outputs.version }}.xpi"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: Release ${{ steps.meta.outputs.tag }}
+          files: |
+            dist/optima-progress-tracker_chrome_${{ steps.meta.outputs.version }}.zip
+            dist/optima-progress-tracker_firefox_${{ steps.meta.outputs.version }}.zip
+            dist/optima-progress-tracker_firefox_${{ steps.meta.outputs.version }}.xpi
+          generate_release_notes: true
