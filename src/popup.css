@@ -34,7 +34,7 @@
 	--bg: var(--light-bg);
 	--fg: var(--light-fg);
 	--done: var(--light-fg);
-	--accent: var(--light-bg);
+	--todo: var(--light-bg);
 	--due: var(--light-bg);
 	--future: var(--light-fg);
 }
@@ -45,7 +45,7 @@
 		--bg: var(--dark-bg);
 		--fg: var(--dark-fg);
 		--done: var(--dark-fg);
-		--accent: var(--dark-bg);
+		--todo: var(--dark-bg);
 		--due: var(--dark-bg);
 		--future: var(--dark-fg);
 	}
@@ -56,7 +56,7 @@
 	--bg: var(--dark-bg);
 	--fg: var(--dark-fg);
 	--done: var(--dark-fg);
-	--accent: var(--dark-bg);
+	--todo: var(--dark-bg);
 	--due: var(--dark-bg);
 	--future: var(--dark-fg);
 }
@@ -178,7 +178,7 @@ thead th {
 	color: var(--done);
 }
 .mode-status td:nth-child(3) {
-	color: var(--accent);
+	color: var(--todo);
 }
 .mode-status td:nth-child(4) {
 	color: var(--due);
