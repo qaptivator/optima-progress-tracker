@@ -167,34 +167,34 @@ thead th {
 	font-weight: 600;
 }
 
-.mode-counts td:not(:first-child),
-.mode-todo td:not(:first-child),
+.mode-status td:not(:first-child),
+.mode-types td:not(:first-child),
 .mode-grades td:not(:first-child) {
 	font-weight: 900;
 }
 
 /* Status Mode - Semantic Accent Colors */
-.mode-counts td:nth-child(2) {
+.mode-status td:nth-child(2) {
 	color: var(--done);
 }
-.mode-counts td:nth-child(3) {
+.mode-status td:nth-child(3) {
 	color: var(--accent);
 }
-.mode-counts td:nth-child(4) {
+.mode-status td:nth-child(4) {
 	color: var(--due);
 }
-.mode-counts td:nth-child(5) {
+.mode-status td:nth-child(5) {
 	color: var(--future);
 }
 
 /* Types Mode - Yellow to Red Scheme */
-.mode-todo td:nth-child(2) {
+.mode-types td:nth-child(2) {
 	color: #ffd43b; /* Lessons - Light Accent */
 }
-.mode-todo td:nth-child(3) {
+.mode-types td:nth-child(3) {
 	color: #f79a21; /* Tests - Main Accent */
 }
-.mode-todo td:nth-child(4) {
+.mode-types td:nth-child(4) {
 	color: #e65d22; /* Assigns - Deeper Accent */
 }
 
