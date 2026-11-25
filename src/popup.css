@@ -167,16 +167,10 @@ thead th {
 	font-weight: 600;
 }
 
-.mode-counts td {
-	font-weight: 600;
-}
-
-.mode-todo td {
-	font-weight: 600;
-}
-
-.mode-grades td {
-	font-weight: 600;
+.mode-counts td:not(:first-child),
+.mode-todo td:not(:first-child),
+.mode-grades td:not(:first-child) {
+	font-weight: 900;
 }
 
 /* Status Mode - Semantic Accent Colors */
@@ -245,7 +239,7 @@ tr:nth-child(even) {
 	border-radius: 4px;
 	cursor: pointer;
 	font-size: 0.8rem;
-	font-weight: 600;
+	font-weight: 400;
 	transition: background 0.2s;
 }
 
@@ -272,7 +266,7 @@ tr:nth-child(even) {
 	border-radius: 4px;
 	cursor: pointer;
 	font-size: 0.9rem;
-	font-weight: 600;
+	font-weight: 400;
 }
 
 .action-btn:hover {
