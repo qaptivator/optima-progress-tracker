@@ -239,13 +239,34 @@
 			.catch(console.error)
 	}
 
-	async function saveSettings() {
+	let isSavingSettings = false
+
+	function syncSettingsFromInputs() {
 		currentSettings.blacklist = blacklistInput.value
 		currentSettings.theme = themeSelect.value
 		currentSettings.showTotal = showTotalInput.checked
-		await browser.storage.local.set({ settings: currentSettings })
-		applyTheme(currentSettings.theme)
-		applyBlacklist()
+	}
+
+	async function saveSettings({ refreshTable = false } = {}) {
+		if (isSavingSettings) return
+		isSavingSettings = true
+		try {
+			syncSettingsFromInputs()
+			await browser.storage.local.set({ settings: currentSettings })
+			applyTheme(currentSettings.theme)
+			applyBlacklist()
+			if (refreshTable) {
+				sortData(currentSort.key, false)
+			}
+		} finally {
+			isSavingSettings = false
+		}
+	}
+
+	function flushSettingsOnExit() {
+		if (viewSettings.classList.contains('hidden')) return
+		syncSettingsFromInputs()
+		browser.storage.local.set({ settings: currentSettings })
 	}
 
 	themeSelect.addEventListener('change', () => {
@@ -253,6 +274,23 @@
 		applyTheme(currentSettings.theme)
 		browser.storage.local.set({ settings: currentSettings })
 	})
+
+	showTotalInput.addEventListener('change', () => {
+		saveSettings()
+	})
+
+	blacklistInput.addEventListener('input', () => {
+		syncSettingsFromInputs()
+		browser.storage.local.set({ settings: currentSettings })
+	})
+
+	document.addEventListener('visibilitychange', () => {
+		if (document.visibilityState === 'hidden') {
+			flushSettingsOnExit()
+		}
+	})
+
+	window.addEventListener('pagehide', flushSettingsOnExit)
 
 	function toggleSettings(show) {
 		if (show) {
