@@ -15,51 +15,51 @@
 }
 
 :root {
-	--bg: #ffffff;
-	--fg: #343a40;
-	--accent: #d76b00;
-	--done: #0eb026;
-	--due: #4a94ff;
-	--future: #214296;
-	/*
-	--bg: #ffffff;
-	--fg: #222;
-	--accent: #fbb11d;
-	--done: #59c95a;
-	--future: #83aeff;
-	*/
+	/* 1. Raw Palette & Shared Accents */
+	--light-bg: #ffffff;
+	--light-fg: #343a40;
+	--dark-done: #59c95a;
+	--dark-accent: #fbaf1d;
+	--dark-due: #4a94ff;
+	--dark-future: #83aeff;
+
+	--dark-bg: #0a1320;
+	--dark-fg: #e1e9ed;
+	--dark-done: #0eb026;
+	--dark-accent: #d76b00;
+	--dark-due: #4a94ff;
+	--dark-future: #214296;
+
+	/* 2. Default Theme (Light) */
+	--bg: var(--light-bg);
+	--fg: var(--light-fg);
+	--done: var(--light-fg);
+	--accent: var(--light-bg);
+	--due: var(--light-bg);
+	--future: var(--light-fg);
 }
 
+/* 3. Automatic System Dark Mode (unless forced light) */
 @media (prefers-color-scheme: dark) {
-	:root {
-		--bg: #0a1320;
-		--fg: #e1e9ed;
-		/*
-		--bg: #1e1e1e;
-		--fg: #f0f0f0;
-		*/
+	:root:not([data-theme='light']) {
+		--bg: var(--dark-bg);
+		--fg: var(--dark-fg);
+		--done: var(--dark-fg);
+		--accent: var(--dark-bg);
+		--due: var(--dark-bg);
+		--future: var(--dark-fg);
 	}
 }
 
-:root[data-theme='light'] {
-	--bg: #ffffff;
-	--fg: #343a40;
-}
+/* 4. Manual Dark Override */
 :root[data-theme='dark'] {
-	--bg: #0a1320;
-	--fg: #e1e9ed;
+	--bg: var(--dark-bg);
+	--fg: var(--dark-fg);
+	--done: var(--dark-fg);
+	--accent: var(--dark-bg);
+	--due: var(--dark-bg);
+	--future: var(--dark-fg);
 }
-
-/* Theme Support (old)
-:root[data-theme='light'] {
-	--bg: #ffffff;
-	--fg: #222;
-}
-:root[data-theme='dark'] {
-	--bg: #1e1e1e;
-	--fg: #f0f0f0;
-}
-*/
 
 .navbar {
 	display: flex;
