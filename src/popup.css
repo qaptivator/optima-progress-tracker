@@ -1,6 +1,22 @@
+@font-face {
+	font-family: 'Source Sans 3';
+	src: url('fonts/SourceSans3-VariableFont_wght.ttf') format('truetype');
+	font-weight: 200 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Source Sans 3';
+	src: url('fonts/SourceSans3-Italic-VariableFont_wght.ttf') format('truetype');
+	font-weight: 200 900;
+	font-style: italic;
+	font-display: swap;
+}
+
 :root {
 	--bg: #ffffff;
-	--fg: #222;
+	--fg: #343a40;
 	--accent: #d76b00;
 	--done: #0eb026;
 	--due: #4a94ff;
@@ -24,6 +40,26 @@
 		*/
 	}
 }
+
+:root[data-theme='light'] {
+	--bg: #ffffff;
+	--fg: #343a40;
+}
+:root[data-theme='dark'] {
+	--bg: #0a1320;
+	--fg: #e1e9ed;
+}
+
+/* Theme Support (old)
+:root[data-theme='light'] {
+	--bg: #ffffff;
+	--fg: #222;
+}
+:root[data-theme='dark'] {
+	--bg: #1e1e1e;
+	--fg: #f0f0f0;
+}
+*/
 
 .navbar {
 	display: flex;
@@ -88,7 +124,9 @@
 body {
 	background: var(--bg);
 	color: var(--fg);
-	font-family: system-ui, sans-serif;
+	/* font-family: system-ui, sans-serif; */
+	font-family: 'Source Sans 3', sans-serif;
+	font-weight: 400;
 	margin: 0;
 	padding: 10px;
 	min-width: 400px;
@@ -124,50 +162,57 @@ thead th {
 	z-index: 10;
 }
 
-/* Counts Mode */
+/* Bold Text */
+.bold {
+	font-weight: 600;
+}
+
+.mode-counts td {
+	font-weight: 600;
+}
+
+.mode-todo td {
+	font-weight: 600;
+}
+
+.mode-grades td {
+	font-weight: 600;
+}
+
+/* Status Mode - Semantic Accent Colors */
 .mode-counts td:nth-child(2) {
 	color: var(--done);
-	font-weight: 700;
 }
 .mode-counts td:nth-child(3) {
 	color: var(--accent);
-	font-weight: 700;
 }
 .mode-counts td:nth-child(4) {
 	color: var(--due);
-	font-weight: 700;
 }
 .mode-counts td:nth-child(5) {
 	color: var(--future);
-	font-weight: 700;
 }
 
-/* TODO Mode - Semantic Accent Colors */
+/* Types Mode - Yellow to Red Scheme */
 .mode-todo td:nth-child(2) {
 	color: #ffd43b; /* Lessons - Light Accent */
-	font-weight: 700;
 }
 .mode-todo td:nth-child(3) {
 	color: #f79a21; /* Tests - Main Accent */
-	font-weight: 700;
 }
 .mode-todo td:nth-child(4) {
 	color: #e65d22; /* Assigns - Deeper Accent */
-	font-weight: 700;
 }
 
 /* Grades Mode - Blue to Purple Scheme */
 .mode-grades td:nth-child(2) {
 	color: #4dabf7; /* Sem 1 - Soft Blue */
-	font-weight: 700;
 }
 .mode-grades td:nth-child(3) {
 	color: #748ffc; /* Sem 2 - Indigo */
-	font-weight: 700;
 }
 .mode-grades td:nth-child(4) {
 	color: #be4bdb; /* Total - Purple/Magenta */
-	font-weight: 700;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -190,16 +235,6 @@ tr:nth-child(even) {
 	tr:nth-child(even) {
 		background: rgba(255, 255, 255, 0.05);
 	}
-}
-
-/* Theme Support */
-:root[data-theme='light'] {
-	--bg: #ffffff;
-	--fg: #222;
-}
-:root[data-theme='dark'] {
-	--bg: #1e1e1e;
-	--fg: #f0f0f0;
 }
 
 .text-btn {
